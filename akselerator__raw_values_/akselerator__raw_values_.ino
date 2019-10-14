@@ -2,32 +2,33 @@
 // By Arduino User JohnChi
 // August 17, 2014
 // Public Domain
-#include<Wire.h>
+#include <Wire.h>
+#include <stdlib.h>
 
-int *total;
-int *gjennomsnitt;
+int *med_denne;
+int *med_forrige;
+int *maalinger;
 
+int ant_var = 6;
 int maks_maalinger = 50;
 int sekv_nr = 0;
 const int MPU_addr=0x68;  // I2C address of the MPU-6050
 boolean akkurat_startet;
 
-int *maalinger;
-
 void setup(){
-   maalinger = malloc(6* 50 * sizeof(int));
-   for (int i = 0; i < 50; i++) {
-      maalinger[i] = 0;
-   }
+   //Allokerer minne
+   maalinger = malloc(ant_var* maks_maalinger * sizeof(int));
+   med_denne = malloc(ant_var * sizeof(int));
+   med_forrige = malloc(ant_var * sizeof(int));
 
-   /*
-   total = malloc(6 * sizeof(int));
-   gjennomsnitt = malloc(2 * 6 * sizeof(int));
-   for (int i = 0; i < 12; i++) {
-      total[i] = 0;
-      gjennomsnitt[i] = 0;
+   //Nullstiller verdier
+   for (int i = 0; i < maks_maalinger; i++) {
+      maalinger[i] = 0;
+      if (i % 5 == 0) {
+	 med_denne[i / 5] = 0;
+	 med_forrige[i / 5] = 0;
+      }
    }
-   */
 
    Wire.begin();
    Wire.beginTransmission(MPU_addr);
@@ -35,6 +36,34 @@ void setup(){
    Wire.write(0);     // set to zero (wakes up the MPU-6050)
    Wire.endTransmission(true);
    Serial.begin(9600);
+
+   Wire.beginTransmission(0b1101000);
+   Wire.write(0x1B); //gyroscope config
+   Wire.write(0x00000000);
+   Wire.endTransmission();
+
+   Wire.beginTransmission(0b1101000);
+   Wire.write(0x1C); //akselerometer config
+   Wire.write(0b00011000);
+   Wire.endTransmission();
+}
+
+int int_compare(const void *a, const void *b) {
+   int *tall_a = (int*) a;
+   int *tall_b = (int*) b;
+   return *tall_a - *tall_b;
+}
+
+void process_gyro_data(int* gyro_arr) {
+  gyro_arr[0] = gyro_arr[0] / 131.0;
+  gyro_arr[1] = gyro_arr[1] / 131.0;
+  gyro_arr[2] = gyro_arr[2] / 131.0;
+}
+
+void process_accel_data(int* acc_arr) {
+  acc_arr[0] = acc_arr[0] / 16.3840;
+  acc_arr[1] = acc_arr[1] / 16.3840;
+  acc_arr[2] = acc_arr[2] / 16.3840;
 }
 
 void loop(){
@@ -43,60 +72,41 @@ void loop(){
    Wire.endTransmission(false);
    Wire.requestFrom(MPU_addr,14,true);  // request a total of 14 registers
 
-   maalinger[sekv_nr*6 + 0] = Wire.read()<<8|Wire.read();  // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)    
-   maalinger[sekv_nr*6 + 1] = Wire.read()<<8|Wire.read();  // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L)
-   maalinger[sekv_nr*6 + 2] = Wire.read()<<8|Wire.read();  // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L)
-   maalinger[sekv_nr*6 + 3] = Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
-   maalinger[sekv_nr*6 + 4] = Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
-   maalinger[sekv_nr*6 + 5] = Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
+   // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)     
+   maalinger[maks_maalinger*0 + sekv_nr] = Wire.read()<<8|Wire.read();  
+   // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L) */
+   maalinger[maks_maalinger*1 + sekv_nr] = Wire.read()<<8|Wire.read();  
+   // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L) */
+   maalinger[maks_maalinger*2 + sekv_nr] = Wire.read()<<8|Wire.read();  
+   // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L) */
+   //Hoppe over temp
+   Wire.read()<<8|Wire.read();
+   maalinger[maks_maalinger*3 + sekv_nr] = Wire.read()<<8|Wire.read();  
+   // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L) */
+   maalinger[maks_maalinger*4 + sekv_nr] = Wire.read()<<8|Wire.read();  
+   // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L) */
+   maalinger[maks_maalinger*5 + sekv_nr] = Wire.read()<<8|Wire.read();  
 
-   /*
-   total[0] += Wire.read()<<8|Wire.read();  // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)    
-   total[1] += Wire.read()<<8|Wire.read();  // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L)
-   total[2] += Wire.read()<<8|Wire.read();  // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L)
-   total[3] += Wire.read()<<8|Wire.read();  // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L)
-   total[4] += Wire.read()<<8|Wire.read();  // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L)
-   total[5] += Wire.read()<<8|Wire.read();  // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L)
-    */
 
    sekv_nr++;
 
    if (sekv_nr >= maks_maalinger) {
-      sort(maalinger, 50);
-   }
-
-   /*
-   if (sekv_nr >= maks_maalinger) {
-      for (int i = 0; i < 6; i++) {
-        gjennomsnitt[i+6] = gjennomsnitt[i]; //flytter gammelt gjennomsnitt til slutt i arrayet
-	     gjennomsnitt[i] = total[i] / maks_maalinger;   
-       if (abs(gjennomsnitt[i] - gjennomsnitt[i+6]) > 25) {
-          if (akkurat_startet) {
-            akkurat_startet = false;
-          } 
-             Serial.print("JA, den beveger på seg!");
-             print(gjennomsnitt);
-          
-       }
-       total[i] = 0;   
+      for (int i = 0; i < ant_var; i++) {
+	 qsort(maalinger + i*maks_maalinger, maks_maalinger, sizeof(int), int_compare);
+	 med_forrige[i] = med_denne[i];
+	 med_denne[i] = maalinger[i*maks_maalinger + 25];
       }
-   }
-   */
-}
 
-void sort(int *a, int size) {
-   for (int l = 0; l < 6; i++) {
+      for (int i = 0; i < maks_maalinger * ant_var; i++) {
+	 maalinger[i] = 0;
+      }
 
+      sekv_nr = 0;
+      process_accel_data(med_denne);
+      process_gyro_data(med_denne+3);
+
+      print(med_denne);
    }
-    for (int i = 0; i < (size-1)*6; i+=6) {
-        for (int o = 0; o < (size-(i+1)*6); o+=6) {
-                if(a[o] > a[o+6]) {
-                    int t = a[o];
-                    a[o] = a[o+6];
-                    a[o+6] = t;
-                }
-        }
-    }
 }
 
 void print(int* verdier) {

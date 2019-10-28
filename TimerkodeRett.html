@@ -1,0 +1,88 @@
+32 minute countdown
+
+<html>
+<head>
+<script>
+</script>
+</head>
+<body>
+
+<br><br>
+<button onClick = "startTimer(32,0)" id="start">START GAME</button>
+<button onClick = "startTimer2(32,0)" id="start2">START GAME2</button>
+
+<br><br>
+<br> Lag 1:
+<p id = "timer">00:00</p>
+Lag 2:
+<p id="timer2">00:00</p>
+<button id="start">Restart</button>
+<button id="pause">Pause</button>
+<button id="pause2">Pause2</button>
+<button id="resume">Resume</button>
+<br><br>
+<br> Do not press the restart button before the pause button.
+<script>
+
+
+
+var timer = document.getElementById("timer");
+var timer2 = document.getElementById("timer2");
+var start = document.getElementById("start");
+var start2 = document.getElementById("start2");
+var pause = document.getElementById("pause");
+var pause2 = document.getElementById("pause2");
+var resume = document.getElementById("resume");
+var id1;
+var id2;
+var value = "00:00";
+
+function startTimer(m, s, id) {
+    timer.textContent = m + ":" + s;
+    if (s == 0) {
+        if (m == 0) {
+            return;
+        } else if (m != 0) {
+            m = m - 1;
+            s = 60;
+        }
+    }
+    s = (Math.round((s - 0.1) * 10))/10;
+    //id = setTimeout(function () {
+        //startTimer(m, s)
+    }, 100);
+    console.log("TEST1");
+
+}
+
+function pauseTimer() {
+    value = timer.textContent;
+    clearTimeout(id1);
+}
+function resumeTimer() {
+    var t = value.split(":");
+    startTimer(parseInt(t[0], 10), parseInt(t[1], 10));
+}
+
+start.addEventListener("click", function () {
+    startTimer(38, 0);
+}, false);
+
+start2.addEventListener("click", function () {
+    startTimer2(38, 0);
+}, false);
+
+
+pause.addEventListener("click", function () {
+  pauseTimer();
+}, false);
+pause2.addEventListener("click", function () {
+  pauseTimer2();
+}, false);
+resume.addEventListener("click", function () {
+  resumeTimer();
+}, false);
+
+</script>
+</body>
+</html>

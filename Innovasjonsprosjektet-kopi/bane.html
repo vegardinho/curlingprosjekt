@@ -17,44 +17,46 @@
       </ul>
 
       <div class="grid-container">
+
 	 <div class="overhead">
 	    <h1> Live tidtakning: </h1>
 	 </div>
-	 <div class="left">
+
+	 <div id="bane1" class="left">
 	    <h1> Bane nr. 1 </h1>
-	 </div>
-	 <div class="middle">
-	    <h1> Bane nr. 2 </h1>
-	 </div>
-	 <div class="right">
-	    <h1> Bane nr. 3 </h1>
-	 </div>
-	 <div class="timer">
-	    <div class="left"> 
-	       <h3> Rødt lag </h3>
-	    </div>
-	    <div class="middle"> 
-	       <h3> Hvitt lag </h3>
-	    </div>
-	    <div class = "left">
-	       <span id="hvitTid">32:00</span>
-	    </div>
-	    <div class = "middle">
-	       <span id="roedTid">32:00</span>
-	    </div>
-	    <div class = "left">
-	       <div class="log">
+	    <h3> Rødt lag </h3>
+	       <span class="left" id="hvitTid">32:00</span>
+	       <div id="start_stop">
+		  <button type="button">Start/stopp</button>
 	       </div>
-	    </div>
 
-	    <div id="start_stop" class = "middle">
-	       <button type="button">Start/stopp</button>
-	    </div>
-	    <div id="bytt_lag" class = "middle">
-	       <button type="button">Bytt lag</button>
-	    </div>
+	       <div id="bytt_lag">
+		  <button type="button">Bytt lag</button>
+	       </div>
 
+	       <div class="middle">
+		  <span id="roedTid">32:00</span>
+		  Endre tid <br>
+		  <input id="innpjutt" name="input" type="text" name="Ny tid" placeholder="00:00" pattern="\d{2}:\d{2}" > <br>
+		  <input type="radio" value="hvitt" name="lag" > Hvitt lag
+		  <input type="radio" value="roedt" name="lag" > Rødt lag <br> 
+		  <input id="settTidKnapp" type="submit" value="Sett tid" name="submit">
+	       </div>
 	 </div>
+
+		  <div id="bane2" class="middle">
+		     <h1> Bane nr. 2 </h1>
+		     <h3> Hvitt lag </h3>
+		     <div class="timer">
+		     </div>
+		  </div>
+
+		  <div id="bane3" class="right">
+		     <h1> Bane nr. 3 </h1>
+		     <div class="timer">
+		     </div>
+
+		  </div>
       </div>
 
       <script src="js/tidtaking.js"></script> 

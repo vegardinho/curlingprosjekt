@@ -41,7 +41,3 @@ document.getElementById("bytt_lag").addEventListener("click", function(event) {
    }
 });
 
-document.getElementById("settTidKnapp").addEventListener("click", function(event) {
-   var innputt = document.getElementById("innpjutt");
-   console.log("innpjutt");
-});

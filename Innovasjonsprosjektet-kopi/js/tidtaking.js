@@ -1,21 +1,18 @@
 var hvitTid = 2160;
-var roead_tid = 2160;
+var roedTid = 2160;
 var hvitRunde = true;
 var stoppet = true;
 
 function counter() {
    if (hvitRunde) {
-      endreTid(hvitTid);
-      document.getElementById("hvitTid").innerHTML = tid_streng;
+      hvitTid --;
+      tidStreng = lagTidStreng(hvitTid);
+      document.getElementById("hvitTid").innerHTML = tidStreng;
    } else {
-      endreTid(roedTid);
-      document.getElementById("roedTid").innerHTML = tid_streng;
+      roedTid --;
+      tidStreng = lagTidStreng(roedTid);
+      document.getElementById("roedTid").innerHTML = tidStreng;
    }
-}
-
-function endreTid(tid) {
-   tid --;
-   tidStreng = lagTidStreng(tid);
 }
 
 function lagTidStreng(tid) {
@@ -36,5 +33,10 @@ document.getElementById("start_stop").addEventListener("click", function(event) 
    }
 });
 
-document.getElementById("bytt_lag").addEventListener("click:wqa
-
+document.getElementById("bytt_lag").addEventListener("click", function(event) {
+   if (hvitRunde === true) {
+      hvitRunde = false;
+   } else {
+      hvitRunde = true;
+   }
+});

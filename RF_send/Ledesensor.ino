@@ -1,4 +1,5 @@
 #include <CapacitiveSensor.h>
+
 CapacitiveSensor cap = CapacitiveSensor(4,2);
 boolean kapasitansSensor = 0;
 const int threshold = 300;

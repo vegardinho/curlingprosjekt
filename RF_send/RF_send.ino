@@ -10,11 +10,13 @@ int* med_denne;
 int* med_forrige;
 int ant_var = 6;
 long* send_array;
+boolean* ja_nei;
 
 void setup() {
    med_denne = malloc((ant_var) * sizeof(int));
    med_forrige = malloc((ant_var) * sizeof(int));
    send_array = malloc((ant_var + 1) * sizeof(long));
+   ja_nei = malloc((ant_var + 1) * sizeof(boolean));
 
   setup_kapasitiv();
   setup_gyro_aks();
@@ -30,15 +32,35 @@ void loop() {
       send_array = (long*) gyro_median();
       send_array[ant_var] = kap_median();
       
-      send(send_array);
+      if (aks_thresh(send_array[0], send_array[1], send_array[2])) {
+	 ja_nei[0] = true;
+      } else {
+	 ja_nei[0] = false;
+      }
+      if (gyro_thresh(send_array[3], send_array[4], send_array[5])) {
+	 ja_nei[1] = true;
+      } else {
+	 ja_nei[1] = false;
+      }
+      if (kap_thresh(send_array[6])) {
+	 ja_nei[2] = true;
+      } else {
+	 ja_nei[2] = false;
+      }
+
+      if (ja_nei[0] || ja_nei[1] || ja_nei[2]) {
+	 send(ja_nei, sizeof(boolean), 3);
+	 Serial.print("Sendt\n");
+      }
+
       print(send_array);
       
       sekv_nr = 0;
    }
 }
 
-void send(long* verdier) {
-   myRadio.write(&verdier, sizeof(int)*(ant_var + 1));
+void send(void* verdier, int str, int ant) {
+   myRadio.write(&verdier, str*ant);
 }
 
 int int_compare(const void *a, const void *b) {

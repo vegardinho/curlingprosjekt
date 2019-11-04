@@ -1,6 +1,6 @@
-#include <CapacitiveSensor.h>
+#include <CapacitiveSensor.h>     //legger til bibliotek 
 
-CapacitiveSensor cap = CapacitiveSensor(4,2);
+CapacitiveSensor cap = CapacitiveSensor(4,2);     //sender pin setter til 4, receive pin settes til 2
 boolean kapasitansSensor = 0;
 const int threshold = 300;
 

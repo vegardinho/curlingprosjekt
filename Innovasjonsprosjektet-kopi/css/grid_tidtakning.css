@@ -59,7 +59,7 @@ body
   max-height: 100%;
 }
 .timer .left {
-  background-color: #800080;
+  background-color: red;
 }
 .timer .middle {
   background-color: #FFF5EE;

@@ -1,90 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="CoffeeCup Web Editor (www.coffeecup.com)">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-	<link rel="stylesheet" type="text/css" href="css/navigation.css">
-	<link rel="stylesheet" type="text/css" href="css/grid_tidtakning.css">
-	<script type="text/javascript">
-	<script type="text/javascript" src="js/clock2.js"></script>
-	</script>
-	
-	
-    <title>Automatisk tidtakning</title>
-  </head>
-  <body>
-  	<ul>
-	  <li> <a href="index.html"> Tittel på produktet? </a></li>
-  	  <li><a class="active">Automatisk tidtakning</a></li>
-  	  <li><a href="om-oss.html">Hva vi tilbyr</a></li>
-  	  <li><a href="contact.asp">Kontakt Oss</a></li>
-	</ul>
-	<div class="grid-container">
-    	 <div class="overhead">
-    	 	  <h1> Live tidtakning: </h1>
-    	 </div>
-        <div class="left">
-    		 <h1> Bane nr. # </h1>
-    	</div>
-		<div class="middle">
-			 <h1> Bane nr. # </h1>
-		</div>
-    	<div class="right">
-			 <h1> Bane nr. # </h1>
-		</div>
-		<div class="timer">
-			 <div class="left"> 
-			 	  <h3> Rødt lag </h3>
-			 </div>
-			 <div class="middle"> 
-			 	  <h3> Hvitt lag </h3>
-			 </div>
-			 <div class = "left">
-			 	  <span id="time">72:00</span>
-			 </div>
-			 <div class = "middle">
-			 	  <span id="time">72:00</span>
-			 </div>
-			 <div class = "left">
-			 	  <div class="log">
-				  </div>
-			 </div>
-			 <div class = "middle">
-			 	  <button type="button">Start/stop</button>
-			</div>
-			<div class = "middle">
-			 	  <button type="button"> Manuell redigering </button>
-			</div>
-		</div>
-	</div>
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="css/navigation.css">
+      <link rel="stylesheet" type="text/css" href="css/grid_tidtakning.css">
+      <title>Automatisk tidtakning</title>
+   </head>
 
-<script>
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
-		
-		< 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+   <body>
 
-        display.textContent = minutes + ":" + seconds;
+      <ul>
+	 <li> <a href="index.html"> Tittel på produktet? </a></li>
+	 <li><a class="active">Automatisk tidtakning</a></li>
+	 <li><a href="om-oss.html">Hva vi tilbyr</a></li>
+	 <li><a href="contact.asp">Kontakt Oss</a></li>
+      </ul>
 
-        if (--timer < 0) {
-            timer = duration;
-        }
-    }, 1000);
-}
+      <div class="grid-container">
+	 <div class="overhead">
+	    <h1> Live tidtakning: </h1>
+	 </div>
+	 <div class="left">
+	    <h1> Bane nr. 1 </h1>
+	 </div>
+	 <div class="middle">
+	    <h1> Bane nr. 2 </h1>
+	 </div>
+	 <div class="right">
+	    <h1> Bane nr. 3 </h1>
+	 </div>
+	 <div class="timer">
+	    <div class="left"> 
+	       <h3> Rødt lag </h3>
+	    </div>
+	    <div class="middle"> 
+	       <h3> Hvitt lag </h3>
+	    </div>
+	    <div class = "left">
+	       <span id="hvit_tid">32:00</span>
+	    </div>
+	    <div class = "middle">
+	       <span id="roed_tid">32:00</span>
+	    </div>
+	    <div class = "left">
+	       <div class="log">
+	       </div>
+	    </div>
 
-window.onload = function () {
-    var seventytwoMinutes = 60 * 72,
-        display = document.querySelector('#time');
-    startTimer(seventytwoMinutes, display);
-};
-</script>
-		  
-		
-  </body>
+	    <div id="start_stop" class = "middle">
+	       <button type="button">Start/stopp</button>
+	    </div>
+	    <div id="bytt_lag" class = "middle">
+	       <button type="button">Bytt lag</button>
+	    </div>
+
+	 </div>
+      </div>
+
+      <script src="js/tidtaking.js"></script> 
+
+   </body>
 </html>

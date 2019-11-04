@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="css/navigation.css">
+      <link rel="stylesheet" type="text/css" href="css/grid_tidtakning.css">
+      <title>Automatisk tidtakning</title>
+   </head>
+
+   <body>
+
+      <ul>
+	 <li> <a href="index.html"> Tittel på produktet? </a></li>
+	 <li><a class="active">Automatisk tidtakning</a></li>
+	 <li><a href="om-oss.html">Hva vi tilbyr</a></li>
+	 <li><a href="contact.asp">Kontakt Oss</a></li>
+      </ul>
+
+      <div class="grid-container">
+
+	 <div class="overhead">
+	    <h1> Live tidtakning: </h1>
+	 </div>
+
+	 <div id="bane1" class="left">
+      <div class="timer">
+        <div class="hele">
+    	    <h1> Bane nr. 1 </h1>
+    	    <h3> Rødt lag </h3>
+        </div>
+        <div class= "left">
+            <span id="hvitTid">32:00</span>
+        </div>
+        <div class="middle">
+            <span id="roedTid">32:00</span>
+        </div>
+        <div class="hele">
+  	       <div id="start_stop">
+  		  <button type="button">Start/stopp</button>
+  	       </div>
+
+  	       <div id="bytt_lag">
+  		  <button type="button">Bytt lag</button>
+  	       </div>
+           Endre tid <br>
+   		  <input id="innpjutt" name="input" type="text" name="Ny tid" placeholder="00:00" pattern="\d{2}:\d{2}" > <br>
+   		  <input type="radio" value="hvitt" name="lag" > Hvitt lag
+   		  <input type="radio" value="roedt" name="lag" > Rødt lag <br>
+   		  <input id="settTidKnapp" type="submit" value="Sett tid" name="submit">
+   	   </div>
+    </div>
+
+
+	 </div>
+
+		  <div id="bane2" class="middle">
+		     <h1> Bane nr. 2 </h1>
+		     <h3> Hvitt lag </h3>
+		     <div class="timer">
+		     </div>
+		  </div>
+
+		  <div id="bane3" class="right">
+		     <h1> Bane nr. 3 </h1>
+		     <div class="timer">
+		     </div>
+
+		  </div>
+      </div>
+
+      <script src="js/tidtaking.js"></script>
+
+   </body>
+</html>

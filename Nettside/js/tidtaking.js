@@ -1,5 +1,5 @@
-var hvitTid = 2160;
-var roedTid = 2160;
+var hvitTid = 2280;
+var roedTid = 2280;
 var hvitRunde = true;
 var stoppet = true;
 
@@ -41,3 +41,21 @@ document.getElementById("bytt_lag").addEventListener("click", function(event) {
    }
 });
 
+document.getElementById("settTid").addEventListener("click", function(event) {
+   var nyMin = parseInt(document.getElementById("nyMin").value);
+   var nySek = parseInt(document.getElementById("nySek").value);
+   if (nyMin > 38 || nySek > 60 || (nyMin === 38 && nySek > 0)) {
+      alert("Ugyldig inndata. Tid må være mellom 00:00 og 38:00");
+   } else {
+      console.log(nyMin);
+      console.log(nySek);
+      var nyTid = (60 * nyMin) + nySek;
+      if (hvitTid) {
+	 hvitTid = nyTid;
+	 document.getElementById("hvitTid").innerHTML = lagTidStreng(hvitTid);
+      } else {
+	 roedTid = nyTid;
+	 document.getElementById("roedTid").innerHTML = lagTidStreng(hvitTid);
+      }
+   }
+});

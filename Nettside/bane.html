@@ -29,10 +29,10 @@
     	    <h3> Rødt lag </h3>
         </div>
         <div class= "left">
-            <span id="hvitTid">32:00</span>
+            <span id="hvitTid">38:00</span>
         </div>
         <div class="middle">
-            <span id="roedTid">32:00</span>
+            <span id="roedTid">38:00</span>
         </div>
         <div class="hele">
   	       <div id="start_stop">
@@ -42,11 +42,13 @@
   	       <div id="bytt_lag">
   		  <button type="button">Bytt lag</button>
   	       </div>
-           Endre tid <br>
-   		  <input id="innpjutt" name="input" type="text" name="Ny tid" placeholder="00:00" pattern="\d{2}:\d{2}" > <br>
-   		  <input type="radio" value="hvitt" name="lag" > Hvitt lag
-   		  <input type="radio" value="roedt" name="lag" > Rødt lag <br>
-   		  <input id="settTidKnapp" type="submit" value="Sett tid" name="submit">
+
+	       <p>
+	       Endre tid <br>
+	       <textarea required placeholder="00" id="nyMin" maxlength="2" rows="1" cols="2"></textarea>:
+	       <textarea required wrap="soft" placeholder="00" maxlength="2" id="nySek" rows="1" 
+		  cols="2"></textarea>
+	       <button id="settTid">Endre</button>
    	   </div>
     </div>
 

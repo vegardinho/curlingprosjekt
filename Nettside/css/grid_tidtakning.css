@@ -84,3 +84,9 @@
 .timer .middle2 {
   background-color: #FFF5EE;
 }
+
+textarea {
+   resize: none;
+   padding: 0;
+   text-align: center;
+}

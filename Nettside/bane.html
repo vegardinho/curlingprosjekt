@@ -2,8 +2,8 @@
 <html lang="en">
    <head>
       <meta charset="utf-8">
-      <link rel="stylesheet" type="text/css" href="css/navigation.css">
-      <link rel="stylesheet" type="text/css" href="css/grid_tidtakning.css">
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
       <title>Automatisk tidtakning</title>
    </head>
 
@@ -41,11 +41,11 @@
             </div>
         <div class="hele">
   	       <div id="start_stop">
-  		         <button type="button">Start/stopp</button>
+  		         <button class="knapp1 redbutton" type="button">Start/stopp</button>
   	       </div>
 
   	       <div id="bytt_lag">
-  		         <button type="button">Bytt lag</button>
+  		         <button class="knapp2 success" type="button">Bytt lag</button>
   	       </div>
 	       <p>
 	       Endre tid <br>
@@ -59,13 +59,14 @@
 
 
 	 </div>
+   <button class= "knapp1 success" id ="knapp1" onclick="forsvinn()"> Vis bane 2</button>
 		  <div id="bane2" class="hidden">
 		    <h1> Bane nr. 2 </h1>
 		    <h3> Hvitt lag </h3>
 		    <div class="timer">
 		    </div>
 		  </div>
-
+    <button class="knapp1 info" id="knapp2" onclick="forsvinn2()"> Vis bane 3</button>
 	  <div id="bane3" class="hidden">
 		    <h1> Bane nr. 3 </h1>
 		    <div class="timer">
@@ -74,9 +75,10 @@
 		</div>
 </div>
 
-    <button id ="knapp1" onclick="forsvinn()"> Vis bane 2</button>
-    <button id="knapp2" onclick="forsvinn2()"> Vis bane 3</button>
+
+
       <script src="js/tidtaking.js"></script>
       <script src = "js/forsvinn.js"> </script>
+
    </body>
 </html>

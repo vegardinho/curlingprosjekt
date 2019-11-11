@@ -1,4 +1,4 @@
-int a_thresh_x = 
+int a_thresh_: = abs(send_array[0] - gammel_send_array[0]);
 int a_thresh_y = abs(send_array[1] - gammel_send_array[1]);
 int a_thresh_z = abs(send_array[2] - gammel_send_array[2]);
 

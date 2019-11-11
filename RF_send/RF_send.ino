@@ -1,7 +1,7 @@
-#include <SPI.h>  
-#include "RF24.h"
+#include <SPI.h>
+#include "RF24.h"		//bib for kommunisere mellom enheter
 
-RF24 myRadio (7, 8);
+RF24 myRadio (7, 8);		//pin 7 er 
 byte addresses[][6] = {"0"}; //må være lik på mottaker
 
 int maks_maalinger = 10;
@@ -58,7 +58,7 @@ void loop() {
 	 send(ja_nei, sizeof(boolean), 3);
       }
 
-      //print(send_array);
+      /* print(send_array); */
       print_ja_nei();
 
       sekv_nr = 0;
@@ -77,8 +77,9 @@ int int_compare(const void *a, const void *b) {
 
 void print_ja_nei() {
    Serial.print("Aks = "); Serial.print(ja_nei[0]);
-   Serial.print(" Gyro = "); Serial.print(ja_nei[1]);
-   Serial.print(" Kap = "); Serial.println(ja_nei[2]);
+   Serial.print("Gyro = "); Serial.print(ja_nei[1]);
+   Serial.print("Kap = "); Serial.print(ja_nei[2]);
+   Serial.print("\n");
 }
 
 void print(long* verdier) {

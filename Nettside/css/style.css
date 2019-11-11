@@ -245,3 +245,6 @@ div.hidden {
   background: #f44336;
   color: white;
 }
+ textarea {
+    resize: none;
+ }

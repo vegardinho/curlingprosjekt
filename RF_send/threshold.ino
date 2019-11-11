@@ -1,4 +1,4 @@
-int a_thresh_: = abs(send_array[0] - gammel_send_array[0]);
+int a_thresh_x = abs(send_array[0] - gammel_send_array[0]);
 int a_thresh_y = abs(send_array[1] - gammel_send_array[1]);
 int a_thresh_z = abs(send_array[2] - gammel_send_array[2]);
 
@@ -8,6 +8,11 @@ int g_thresh_z = abs(send_array[5] - gammel_send_array[5]);
 
 int kap_threshold = abs(send_array[6] - gammel_send_array[6]);
 
+int endring_x;
+int endring_y;
+int endring_z;
+int verdi;
+
 
 boolean aks_thresh(long* send_array, long* gammel_send_array) {
    endring_x = abs(send_array[0] - gammel_send_array[0]);
@@ -15,6 +20,7 @@ boolean aks_thresh(long* send_array, long* gammel_send_array) {
    endring_z = abs(send_array[2] - gammel_send_array[2]);
 
    if (endring_x > a_thresh_x || endring_y > a_thresh_y || endring_z > a_thresh_z) {
+    //Serial.print("Endring over thresh: "); Serial.print(endring_x);
       return true;
    }
    return false;

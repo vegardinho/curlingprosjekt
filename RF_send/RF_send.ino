@@ -55,7 +55,8 @@ void loop() {
       }
 
       if (ja_nei[0] || ja_nei[1] || ja_nei[2]) {
-	 send(ja_nei, sizeof(boolean), 3);
+	 /* send(ja_nei, sizeof(boolean), 3); */
+	 send(send_array, sizeof(int), 7);
       }
 
       /* print(send_array); */

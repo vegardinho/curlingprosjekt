@@ -4,6 +4,7 @@
       <meta charset="utf-8">
       <link rel="stylesheet" type="text/css" href="css/navigation.css">
       <link rel="stylesheet" type="text/css" href="css/grid_tidtakning.css">
+      <link rel="stylesheet" type="text/css" href="css/knapper.css">
       <title>Automatisk tidtakning</title>
    </head>
 
@@ -16,33 +17,37 @@
 	 <li><a href="contact.asp">Kontakt Oss</a></li>
       </ul>
 
-      <div class="grid-container">
+<div id = "hele-grid" class="grid-container">
 
 	 <div class="overhead">
 	    <h1> Live tidtakning: </h1>
 	 </div>
 
-	 <div id="bane1" class="left">
+	 <div id="bane1">
       <div class="timer">
         <div class="hele">
-    	    <h1> Bane nr. 1 </h1>
-    	    <h3> Rødt lag </h3>
+    	      <h2> Bane nr. 1 </h2>
         </div>
         <div class= "left">
-            <span id="hvitTid">38:00</span>
+            <h3> Rød tid </h3>
         </div>
-        <div class="middle">
-            <span id="roedTid">38:00</span>
+        <div class= "middle">
+            <h3> Hvit tid </h3>
         </div>
+            <div id = "roed" class= "left">
+                <span id="hvitTid">32:00</span>
+            </div>
+            <div id = "hvit" class="middle">
+                <span id="roedTid">32:00</span>
+            </div>
         <div class="hele">
   	       <div id="start_stop">
-  		  <button type="button">Start/stopp</button>
+  		         <button type="button">Start/stopp</button>
   	       </div>
 
   	       <div id="bytt_lag">
-  		  <button type="button">Bytt lag</button>
+  		         <button type="button">Bytt lag</button>
   	       </div>
-
 	       <p>
 	       Endre tid <br>
 	       <textarea required placeholder="00" id="nyMin" maxlength="2" rows="1"
@@ -55,23 +60,24 @@
 
 
 	 </div>
-
-		  <div id="bane2" class="middle">
-		     <h1> Bane nr. 2 </h1>
-		     <h3> Hvitt lag </h3>
-		     <div class="timer">
-		     </div>
+		  <div id="bane2" class="hidden">
+		    <h1> Bane nr. 2 </h1>
+		    <h3> Hvitt lag </h3>
+		    <div class="timer">
+		    </div>
 		  </div>
 
-		  <div id="bane3" class="right">
-		     <h1> Bane nr. 3 </h1>
-		     <div class="timer">
+	  <div id="bane3" class="hidden">
+		    <h1> Bane nr. 3 </h1>
+		    <div class="timer">
 		     </div>
 
-		  </div>
-      </div>
+		</div>
+</div>
 
+    <button id ="knapp1" onclick="forsvinn()"> Vis bane 2</button>
+    <button id="knapp2" onclick="forsvinn2()"> Vis bane 3</button>
       <script src="js/tidtaking.js"></script>
-
+      <script src = "js/forsvinn.js"> </script>
    </body>
 </html>

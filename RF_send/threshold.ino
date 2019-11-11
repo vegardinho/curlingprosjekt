@@ -19,6 +19,8 @@ boolean aks_thresh(long* send_array, long* gammel_send_array) {
    endring_y = abs(send_array[1] - gammel_send_array[1]);
    endring_z = abs(send_array[2] - gammel_send_array[2]);
 
+   Serial.println(endring_x);
+
    if (endring_x > a_thresh_x || endring_y > a_thresh_y || endring_z > a_thresh_z) {
     //Serial.print("Endring over thresh: "); Serial.print(endring_x);
       return true;

@@ -1,7 +1,7 @@
 #include <SPI.h>
 #include "RF24.h"		//bib for kommunisere mellom enheter
 
-RF24 myRadio (7, 8);		//pin 7 er 
+RF24 myRadio (7, 8);		//setter CSN og CE pins. Vil være send og receive pin til SPI busen 
 byte addresses[][6] = {"0"}; //må være lik på mottaker
 
 int maks_maalinger = 10;

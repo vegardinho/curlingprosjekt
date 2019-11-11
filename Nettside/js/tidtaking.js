@@ -1,7 +1,7 @@
 var hvitTid = 2280;
 var roedTid = 2280;
 var hvitRunde = true;
-document.getElementById("hvit").style.color = "#cccc00";
+document.getElementById("hvit").style.backgroundColor = "yellow";
 var stoppet = true;
 
 function counter() {
@@ -51,12 +51,12 @@ document.getElementById("start_stop").addEventListener("click", function(event) 
 document.getElementById("bytt_lag").addEventListener("click", function(event) {
    if (hvitRunde === true) {
       hvitRunde = false;
-      document.getElementById("roed").style.color = "#cccc00";
-      document.getElementById("hvit").style.color = "black";
+      document.getElementById("roed").style.backgroundColor = "yellow";
+      document.getElementById("hvit").style.backgroundColor = "white";
    } else {
       hvitRunde = true;
-      document.getElementById("hvit").style.color = "#cccc00";
-      document.getElementById("roed").style.color = "black";
+      document.getElementById("hvit").style.backgroundColor = "yellow";
+      document.getElementById("roed").style.backgroundColor = "red";
    }
 });
 

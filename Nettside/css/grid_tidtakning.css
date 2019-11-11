@@ -103,3 +103,7 @@ h3 {
 div.hidden {
   display: none;
 }
+
+textarea {
+   resize: none;
+}

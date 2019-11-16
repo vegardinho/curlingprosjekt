@@ -1,28 +1,33 @@
+html {
+  font-family: "Karla";
+}
 /* Navigasjonslinja */
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  border: 1px solid #e7e7e7;
-  background-color: #f3f3f3;
+  background-color: #001f3f;
 }
 li {
   float: left;
 }
 li a {
+  font-size: 18px;
   display: block;
-  color: #111;
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  transition: 0.5s;
 }
 li a:hover:not(.active) {
-  background-color: #333;
+  background-color: #DDDDDD;
 
 }
 .active {
-  background-color: #3D9970;
+  background-color: white;
+  color: #111;
 }
 
 /* Bare for bilde på forsiden */
@@ -109,9 +114,8 @@ li a:hover:not(.active) {
   grid-template-columns: repeat(var(--colNum)), auto);
   grid-gap: 10px;
   padding: 5px;
-  border: 1px solid #000;
   grid-gap: 4px;
-  background-color:	#B0C4DE;
+  /*background-color:	#B0C4DE;*/
 }
 .timer {
   display: grid;
@@ -120,27 +124,41 @@ li a:hover:not(.active) {
   align-content: start;
   grid-template-columns: 1fr 1fr;
   grid-gap:10px;
-  padding: 1x;
+  padding: 1px;
   grid-gap: 4px;
+  border-right: 1.5px solid #DDDDDD;
 }
 h2 {
   margin: 5px;
   font-size: 35px;
 }
 h3 {
+  font-size: 20px;
   margin: 5px;
-  border-bottom: 1.5px solid #fff;
+  border-bottom: 1.5px solid #DDDDDD;
+}
+h4 {
+  margin: 5px;
+  font-size: 27px;
+  border-bottom: 1.5px solid #DDDDDD;
 }
 .overhead {
   grid-column: 1 / 4;
-  background-color: #1E90FF;
+  /*background-color: #1E90FF;*/
   padding: 10px;
+  border-bottom: 3px solid #DDDDDD;
 }
 .left {
   grid-column: 1 / 1;
 }
 .middle{
   grid-column: 2 / 2;
+}
+.lag1 > h3{
+  border-bottom-color: #cc0000;
+}
+.lag2 > h3{
+  border-bottom-color: #ffff00;
 }
 .right{
   grid-column: 3 / 3;
@@ -164,23 +182,24 @@ h3 {
   max-height: 100%;
 }
 #roed {
-  background-color: red;
   font-size: 30px;
   padding: 15px;
+  border: 2px solid white;
 }
 #hvit {
-  background-color: white;
   padding: 15px;
   font-size: 30px;
+  border: 2px solid white;
 }
 #bane1 {
-  background-color: #99ccff;
+  /*background-color: #99ccff;*/
+
 }
 #bane2 {
-  background-color: #66ff66;
+
 }
 #bane3 {
-  background-color: #ffff99;
+
 }
 .log {
   grid-column: 1;
@@ -201,7 +220,22 @@ h3 {
 div.hidden {
   display: none;
 }
-
+#start_stopp_knapp{
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.7s;
+  border: solid #00ff00;
+  height:50px;
+  width:200px;
+}
+/*#start_stopp_knapp:hover{
+  background: #f44336;
+  color: white;
+}*/
 
 /* Her er knappene */
 .knapp1{
@@ -211,40 +245,65 @@ div.hidden {
   padding: 14px 28px;
   font-size: 16px;
   cursor: pointer;
+  transition: 1s;
+  border-color: #f44336;
+  color: red
 }
 .knapp2{
   border: 1px solid black;
   background-color: white;
   color: black;
-  padding: 9px 22px;
-  font-size: 13px;
+  padding: 8px 20px;
+  font-size: 14px;
   cursor: pointer;
-  margin: 10px;
+  margin: 8px;
+  transition: 0.7s;
 }
 .success {
-  border-color: #4CAF50;
-  color: green;
+  border-color: #DDDDDD;
+  color: #11111;
 }
 .success:hover {
-  background-color: #4CAF50;
+  background-color: #001f3f;;
   color: white;
 }
 .info {
-  border-color: #2196F3;
-  color: dodgerblue
+  border-color: #DDDDDD;
+  color: #11111;
 }
 .info:hover {
-  background: #2196F3;
+  background: #001f3f;
   color: white;
 }
 .redbutton {
   border-color: #f44336;
   color: red
 }
+.banenr2 {
+  border-color: #DDDDDD;
+  color: #AAAAAA
+}
+.banenr2:hover {
+  background: #001f3f;
+  color: white;
+}
+.banenr3 {
+  border-color: #DDDDDD;
+  color: #AAAAAA
+}
+.banenr3:hover {
+  background: #7FDBFF;
+  color: white;
+}
 .redbutton:hover {
   background: #f44336;
   color: white;
 }
  textarea {
-    resize: none;
+  width: 85px;
+  padding: 8px 13px;
+  margin: 4px 0;
+  box-sizing: border-box;
+  resize: none;
+  text-align: center;
  }

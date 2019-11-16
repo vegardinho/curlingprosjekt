@@ -36,7 +36,7 @@ void setup() {
 
 void setup_radio() {                  
   Serial.begin(9600);                   //setter data-raten i bits per sekund 
-  delay(100);                           //trenger ikke målinger så ofte; setter derfor på delay - for bedre ytelse på resten
+  /* delay(100);                           //trenger ikke målinger så ofte; setter derfor på delay - for bedre ytelse på resten */
   myRadio.begin();                      //begynner transitering [bib inkludert (RF24.h) i RF_send]
   myRadio.setChannel(115); //kanal vi vil kommunisere med mottakeren
   myRadio.setPALevel(RF24_PA_MAX); //bruker mer strøm, men gir lengt mulig rekkevidde [Power amplifier]
@@ -83,12 +83,11 @@ void loop() {
 
       if (ja_nei[0] || ja_nei[1] || ja_nei[2]) {
 	 send(ja_nei, sizeof(boolean), 3);
+	 print_ja_nei();
 	 /* send(send_array, sizeof(int), 7); */
       }
 
       /* print(send_array); */
-      /* print_ja_nei(); */
-      /* Serial.println(gyro_i_endring); */
 
       sekv_nr = 0;
    }

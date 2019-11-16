@@ -38,7 +38,7 @@ void loop()
   {
     while (!myRadio.available())
     {
-      myRadio.read(&mottatt, mottatt);
+      myRadio.read(&mottatt, sizeof(mottatt));
     }
 
     Serial.print("\nVerdier:");

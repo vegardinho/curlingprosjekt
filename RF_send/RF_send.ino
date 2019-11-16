@@ -2,7 +2,7 @@
 #include "RF24.h"		//bib for kommunisere mellom enheter
 
 RF24 myRadio (7, 8);		//setter CSN og CE pins. Vil være send og receive pin til SPI busen 
-byte addresses[][6] = {"0"}; //må være lik på mottaker
+byte address = "0001"; //må være lik på mottaker
 
 int maks_maalinger = 10;
 int sekv_nr = 0;
@@ -12,6 +12,12 @@ int ant_var = 6;
 long* send_array;
 long* gammel_send_array;
 boolean* ja_nei;
+long* kap_maalinger;                          //def variabel
+
+boolean old_aks_mvmt = false;
+boolean new_aks_mvmt = false;
+boolean old_gyro_mvmt = false;
+boolean new_gyro_mvmt = false;
 
 void setup() {
    med_denne = malloc((ant_var) * sizeof(int));
@@ -20,10 +26,25 @@ void setup() {
    gammel_send_array = malloc((ant_var + 1) * sizeof(long));
    ja_nei = malloc((ant_var + 1) * sizeof(boolean));
 
-   setup_kapasitiv();
+   //sizeof - returnerer antall bytes, malloc - reserverer minne av spesifisert mengde */
+   kap_maalinger = malloc(sizeof(long) * maks_maalinger);      
+
+   setup_radio();
    setup_gyro_aks();
+
 }
 
+void setup_radio() {                  
+  Serial.begin(9600);                   //setter data-raten i bits per sekund 
+  delay(100);                           //trenger ikke målinger så ofte; setter derfor på delay - for bedre ytelse på resten
+  myRadio.begin();                      //begynner transitering [bib inkludert (RF24.h) i RF_send]
+  myRadio.setChannel(115); //kanal vi vil kommunisere med mottakeren
+  myRadio.setPALevel(RF24_PA_MAX); //bruker mer strøm, men gir lengt mulig rekkevidde [Power amplifier]
+  myRadio.setDataRate( RF24_250KBPS ) ; //lavest mulig dataoverføring for lengre rekkevidde
+  myRadio.openWritingPipe(address);     //setter destinasjon for hvor vi tenker å skrive
+  myRadio.stopListening();                    //stopper forrige punkt
+
+}
 void loop() {
    kap_maaling();
    gyro_maaling();
@@ -31,23 +52,29 @@ void loop() {
    sekv_nr++;
 
    if (sekv_nr >= maks_maalinger) {
-      for (int i = 0; i < ant_var; i++) {
+      for (int i = 0; i < ant_var + 1; i++) {
 	 gammel_send_array[i] = send_array[i];
       }
 
       send_array = (long*) gyro_median();
       send_array[ant_var] = kap_median();
 
-      if (aks_thresh(send_array, gammel_send_array)) {
-	 ja_nei[0] = true;
+      new_aks_mvmt = aks_thresh(send_array, gammel_send_array);
+      if (new_aks_mvmt && !old_aks_mvmt || !new_aks_mvmt && old_aks_mvmt) {
+	    ja_nei[0] = true;
       } else {
 	 ja_nei[0] = false;
       }
-      if (gyro_thresh(send_array, gammel_send_array)) {
-	 ja_nei[1] = true;
+      old_aks_mvmt = new_aks_mvmt;
+
+      new_gyro_mvmt = gyro_thresh(send_array, gammel_send_array);
+      if (new_gyro_mvmt && !old_gyro_mvmt || !new_gyro_mvmt && old_aks_mvmt) {
+	    ja_nei[1] = true;
       } else {
 	 ja_nei[1] = false;
       }
+      old_gyro_mvmt = new_gyro_mvmt;
+
       if (kap_thresh(send_array, gammel_send_array)) {
 	 ja_nei[2] = true;
       } else {
@@ -55,12 +82,13 @@ void loop() {
       }
 
       if (ja_nei[0] || ja_nei[1] || ja_nei[2]) {
-	 /* send(ja_nei, sizeof(boolean), 3); */
-	 send(send_array, sizeof(int), 7);
+	 send(ja_nei, sizeof(boolean), 3);
+	 /* send(send_array, sizeof(int), 7); */
       }
 
       /* print(send_array); */
-      print_ja_nei();
+      /* print_ja_nei(); */
+      /* Serial.println(gyro_i_endring); */
 
       sekv_nr = 0;
    }

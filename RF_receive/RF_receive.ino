@@ -25,7 +25,7 @@ void setup()
   myRadio.setChannel(115); 
   myRadio.setPALevel(RF24_PA_MAX);
   myRadio.setDataRate( RF24_250KBPS ) ; 
-  myRadio.openReadingPipe(address);
+  myRadio.openReadingPipe(1, address);
   myRadio.startListening();
 }
 
@@ -40,7 +40,9 @@ void loop()
       myRadio.read(&mottatt, sizeof(boolean)*3 );
     }
     Serial.print("\nVerdier:");
-    Serial.print(mottatt);
+    for (int i = 0; i < 3; i++) {
+       Serial.print(mottatt[i] + ", ");
+    }
     Serial.print("\n");
   }
 

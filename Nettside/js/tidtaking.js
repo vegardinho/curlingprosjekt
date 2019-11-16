@@ -64,16 +64,20 @@ document.getElementById("bytt_lag").addEventListener("click", function(event) {
 document.getElementById("settTid").addEventListener("click", function(event) {
    var nyMin = parseInt(document.getElementById("nyMin").value);
    var nySek = parseInt(document.getElementById("nySek").value);
-   if (nyMin > 38 || nySek > 60 || (nyMin === 38 && nySek > 0)) {
-      alert("Ugyldig inndata. Tid må være mellom 00:00 og 38:00");
+   if (isNaN(nyMin) || isNaN(nySek)) {
+      alert("Skriv inn gyldige verdier for tid!");
    } else {
-      var nyTid = (60 * nyMin) + nySek;
-      if (hvitRunde) {
-	 hvitTid = nyTid;
-	 document.getElementById("hvitTid").innerHTML = lagTidStreng(nyTid);
+      if (nyMin > 38 || nySek > 60 || (nyMin === 38 && nySek > 0)) {
+	 alert("Ugyldig inndata. Tid må være mellom 00:00 og 38:00");
       } else {
-	 roedTid = nyTid;
-	 document.getElementById("roedTid").innerHTML = lagTidStreng(nyTid);
+	 var nyTid = (60 * nyMin) + nySek;
+	 if (hvitRunde) {
+	    hvitTid = nyTid;
+	    document.getElementById("hvitTid").innerHTML = lagTidStreng(nyTid);
+	 } else {
+	    roedTid = nyTid;
+	    document.getElementById("roedTid").innerHTML = lagTidStreng(nyTid);
+	 }
       }
    }
 });

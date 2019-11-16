@@ -1,8 +1,32 @@
 var hvitTid = 2280;
 var roedTid = 2280;
 var hvitRunde = true;
-document.getElementById("hvit").style.backgroundColor = "yellow";
+document.getElementById("hvit");
 var stoppet = true;
+document.getElementById("hvit").style.border = "solid #001f3f";
+
+document.getElementById("start_stopp_knapp").onmouseout = function()
+{
+  this.style.backgroundColor = "white";
+}
+function gronn_time() {
+    document.getElementById("start_stopp_knapp").style.backgroundColor = "white";
+    document.getElementById("start_stopp_knapp").style.border = "solid #00ff00";
+    document.getElementById("start_stopp_knapp").innerText = "Start";
+    document.getElementById("start_stopp_knapp").onmouseover = function()
+      {
+        this.style.backgroundColor = "#00ff00";
+      }
+}
+function roed_time(){
+    document.getElementById("start_stopp_knapp").style.backgroundColor = "white";
+    document.getElementById("start_stopp_knapp").style.border = "solid #f44336";
+    document.getElementById("start_stopp_knapp").innerText = "Stopp";
+    document.getElementById("start_stopp_knapp").onmouseover = function()
+    {
+      this.style.backgroundColor = "#f44336";
+    }
+}
 
 function counter() {
    if (hvitRunde) {
@@ -41,8 +65,11 @@ document.getElementById("start_stop").addEventListener("click", function(event) 
    if (stoppet) {
       intervall = setInterval(counter, 1000);
       stoppet = false;
+      roed_time()
+
    } else {
       clearInterval(intervall);
+      gronn_time()
       stoppet = true;
    }
 });
@@ -51,12 +78,12 @@ document.getElementById("start_stop").addEventListener("click", function(event) 
 document.getElementById("bytt_lag").addEventListener("click", function(event) {
    if (hvitRunde === true) {
       hvitRunde = false;
-      document.getElementById("roed").style.backgroundColor = "yellow";
-      document.getElementById("hvit").style.backgroundColor = "white";
+      document.getElementById("roed").style.border = "solid #001f3f";
+      document.getElementById("hvit").style.border = "white";
    } else {
       hvitRunde = true;
-      document.getElementById("hvit").style.backgroundColor = "yellow";
-      document.getElementById("roed").style.backgroundColor = "red";
+      document.getElementById("hvit").style.border = "solid #001f3f";
+      document.getElementById("roed").style.border = "white";
    }
 });
 

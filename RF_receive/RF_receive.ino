@@ -37,7 +37,7 @@ void loop()
   {
     while (myRadio.available())
     {
-      myRadio.read(&mottatt, sizeof(boolean)*3 );
+      myRadio.read(mottatt, sizeof(boolean)*3 );
     }
     Serial.print("\nVerdier:");
     for (int i = 0; i < 3; i++) {

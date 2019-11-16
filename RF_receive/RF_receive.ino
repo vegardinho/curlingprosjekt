@@ -2,18 +2,19 @@
 #include "RF24.h" 
 
 RF24 myRadio (7, 8); //
-struct package
-{
-  int id=0;
-  char  text[100] ="empty";
-};
 
-byte addresses[][6] = {"0"}; 
+/* struct package */
+/* { */
+/*   int id=0; */
+/*   boolean verdier[3]; */
+/* }; */
 
+/* typedef struct package Package; */
+/* Package data; */
 
+byte address = "0001";
 
-typedef struct package Package;
-Package data;
+boolean mottatt[3];
 
 void setup() 
 {
@@ -24,7 +25,7 @@ void setup()
   myRadio.setChannel(115); 
   myRadio.setPALevel(RF24_PA_MAX);
   myRadio.setDataRate( RF24_250KBPS ) ; 
-  myRadio.openReadingPipe(1, addresses[0]);
+  myRadio.openReadingPipe(address);
   myRadio.startListening();
 }
 
@@ -36,12 +37,11 @@ void loop()
   {
     while (myRadio.available())
     {
-      myRadio.read( &data, sizeof(data) );
+      myRadio.read(&mottatt, sizeof(boolean)*3 );
     }
-    Serial.print("\nPackage:");
-    Serial.print(data.id);
+    Serial.print("\nVerdier:");
+    Serial.print(mottatt);
     Serial.print("\n");
-    Serial.println(data.text);
   }
 
 }

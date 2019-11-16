@@ -1,3 +1,4 @@
+
 #include <SPI.h>  
 #include "RF24.h" 
 
@@ -35,13 +36,18 @@ void loop()
 
   if ( myRadio.available()) //ser etter data å motta
   {
-    while (myRadio.available())
+    while (!myRadio.available())
     {
-      myRadio.read(mottatt, sizeof(boolean)*3 );
+      myRadio.read(&mottatt, mottatt);
     }
+
     Serial.print("\nVerdier:");
     for (int i = 0; i < 3; i++) {
-       Serial.print(mottatt[i] + ", ");
+       if (mottatt[i] == true) {
+	  Serial.print(1);
+       } else {
+	 Serial.print(0);
+       }
     }
     Serial.print("\n");
   }

@@ -83,12 +83,11 @@ void loop() {
 
       if (ja_nei[0] || ja_nei[1] || ja_nei[2]) {
 	 send(ja_nei, sizeof(boolean), 3);
+	 print_ja_nei();
 	 /* send(send_array, sizeof(int), 7); */
       }
 
       /* print(send_array); */
-      print_ja_nei();
-      /* Serial.println(gyro_i_endring); */
 
       sekv_nr = 0;
    }

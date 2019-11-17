@@ -1,6 +1,8 @@
 html {
   font-family: "Karla", sans-serif;
+  scroll-behavior: smooth;
 }
+
 /* Navigasjonslinja */
 ul {
   list-style-type: none;
@@ -8,6 +10,10 @@ ul {
   padding: 0;
   overflow: hidden;
   background-color: #001f3f;
+  position: sticky;
+  overflow: hidden;
+  top: 0;
+  width: 100%;
 }
 li {
   float: left;
@@ -29,6 +35,7 @@ li a:hover:not(.active) {
   background-color: white;
   color: #111;
 }
+
 
 /* Bare for bilde på forsiden */
 .container {
@@ -73,22 +80,59 @@ li a:hover:not(.active) {
 	max-height: 240px;
 	width: 100%;
 }
-
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
 /* Griden til Forsiden */
+body {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 .grid-container_første_side {
   display: grid;
   height: auto;
   width: 100%;
   align-content: start;
-  grid-template-columns: 1fr 1.2fr;
-  grid-gap: 40px;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
   padding: 5px;
 }
 .item1 {
   grid-column: 1 / 1;
+  grid-row: 1 / 1;
 }
 .item2 {
   grid-column: 2 /2;
+  grid-row: 1 / 1;
+}
+.item3 {
+  grid-column: 1 / 1;
+  grid-row: 2 / 2;
+}
+.item4 {
+  grid-column: 2 /2;
+  grid-row: 2 / 2;
+}
+.item5 {
+  grid-column: 1 / 1;
+  grid-row: 3 / 3;
+}
+.item6 {
+  grid-column: 2 /2;
+  grid-row: 3 / 3;
+}
+.liste {
+
+}
+.center {
+  display: table;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 17px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .grid-container > div {
   text-align: left;
@@ -111,11 +155,17 @@ li a:hover:not(.active) {
   height: auto;
   width: 100%;
   align-content: start;
-  grid-template-columns: repeat(var(--colNum)), auto);
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
   padding: 5px;
   grid-gap: 4px;
   /*background-color:	#B0C4DE;*/
+}
+.overskriftBig {
+  font-size: 40px;
+  text-align: center;
+  color: #001f3f;
+  border-bottom: solid 3px #001f3f;
 }
 .timer {
   display: grid;
@@ -143,13 +193,18 @@ h4 {
   border-bottom: 1.5px solid #DDDDDD;
 }
 
-/* Overskriften på timing siden */
+/* Overskrifter */
 .overhead {
   grid-column: 1 / 4;
   /*background-color: #1E90FF;*/
   padding: 10px;
   border-bottom: 3px solid #DDDDDD;
 }
+.overskrift {
+  font-size: 20px;
+  text-align: center;
+}
+
 
 /* Mye dårlig her, kunne blitt lagt under mer spesifkke og presise navn */
 .left {
@@ -227,6 +282,7 @@ div.hidden {
 
 
 /* Her er knappene */
+
 .knapp1{
   border: 2px solid black;
   background-color: white;
@@ -308,3 +364,59 @@ div.hidden {
    height:50px;
    width:200px;
  }
+@media screen and (max-width: 600px) {
+  .banenr2 {
+    display: none;
+  }
+  .banenr3 {
+    display: none;
+  }
+  #stupid{
+    display: none;
+  }
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+  .overskrift {
+    font-size: 15px;
+  }
+  .centered {
+    position: absolute;
+    bottom: 20px;
+  }
+  .overskriftBig {
+    font-size: 24px;
+  }
+  li a {
+    font-size: 10px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 9px 11px;
+    text-decoration: none;
+    transition: 0.5s;
+  }
+}
+@media screen and (max-width: 1100px) and (min-width: 600px) {
+  .banenr2 {
+    display: none;
+  }
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  #stupid {
+    display: none;
+  }
+  .overskriftBig{
+    font-size: 30px;
+  }
+  li a {
+    font-size: 12px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 11px 13px;
+    text-decoration: none;
+    transition: 0.5s;
+  }
+}

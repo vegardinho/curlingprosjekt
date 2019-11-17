@@ -4,6 +4,7 @@ var hvitRunde = true;
 document.getElementById("hvit");
 var stoppet = true;
 document.getElementById("hvit").style.border = "solid #001f3f";
+
 document.getElementById("start_stopp_knapp").onmouseover = function()
   {
     this.style.backgroundColor = "#00ff00";

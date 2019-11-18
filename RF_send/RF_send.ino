@@ -97,6 +97,7 @@ void send(void* verdier, int str, int ant) {
    myRadio.write(&verdier, str*ant);
 }
 
+//sammenligner to tall 
 int int_compare(const void *a, const void *b) {
    int* tall_a = (int*) a;
    int* tall_b = (int*) b;

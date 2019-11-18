@@ -26,9 +26,9 @@ void setup() {
    gammel_send_array = malloc((ant_var + 1) * sizeof(long));
    ja_nei = malloc((ant_var + 1) * sizeof(boolean));
 
-   //sizeof - returnerer antall bytes, malloc - reserverer minne av spesifisert mengde */
    kap_maalinger = malloc(sizeof(long) * maks_maalinger);      
-
+ //sizeof - returnerer antall bytes, malloc - reserverer minne av spesifisert mengde */
+	
    setup_radio();
    setup_gyro_aks();
 

@@ -1,3 +1,82 @@
+//Firebase kode
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAiZ7O5u4reFJDmEo4ZwzvZvczccREeijs",
+    authDomain: "innovasjonsprosjektet-11.firebaseapp.com",
+    databaseURL: "https://innovasjonsprosjektet-11.firebaseio.com",
+    projectId: "innovasjonsprosjektet-11",
+    storageBucket: "innovasjonsprosjektet-11.appspot.com",
+    messagingSenderId: "104701095266",
+    appId: "1:104701095266:web:e1471d5c6009b04458503b",
+    measurementId: "G-TCK6GJTDZ0"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  // Get a reference to the database service
+  let database = firebase.database();
+  var output = document.getElementById('output');
+  let steiner = database.ref("data");
+
+function addStein() {
+      var ny_aks = parseInt(document.getElementById("nyaks").value);
+      var ny_gyro = parseInt(document.getElementById("nygyro").value);
+      var ny_cond = parseInt(document.getElementById("nycond").value);
+
+      let nyStein = {
+        "aks": ny_aks,
+        "gyro": ny_gyro,
+        "cond": ny_cond
+      }
+      pushStein(nyStein);
+  }
+
+function pushStein(stein) {
+  steiner.push(stein);
+};
+
+  // var steinTilstand = firebase.database().ref('data/');
+  // steinTilstandRef.on('value', function(snapshot) {
+  //   updateTilstand(output, snapshot.val());
+// });
+var naa_aks =  0;
+var naa_gyro = 0;
+var naa_cond = 0;
+
+
+var steinRef = database.ref('data');
+let aks = document.getElementById("aks");
+let gyro = document.getElementById("gyro");
+let cond = document.getElementById("cond");
+
+function visSteiner(snapshot) {
+  var stein = snapshot.val();
+  var naa_aks = `${stein.aks}`;
+  var naa_gyro = `${stein.gyro}`;
+  var naa_cond = `${stein.cond}`;
+
+  aks.innerHTML = "Aks: " + naa_aks;
+  gyro.innerHTML = "Gyro: " + naa_gyro;
+  cond.innerHTML = "Cond: " + naa_cond;
+  automatic_start_stop(naa_aks, naa_gyro, naa_cond);
+
+}
+
+steinRef.on('child_added', visSteiner);
+
+knapp = document.getElementById("firebase");
+console.log(knapp);
+knapp.addEventListener("click", addStein);
+
+
+
+
+
+//TIDTAKNING
+var stein_paa_vei = false;
+var start_game = false;
+var stein_aktivert = false;
 var hvitTid = 2280;
 var roedTid = 2280;
 var hvitRunde = true;
@@ -35,12 +114,12 @@ function roed_time(){
 
 function counter() {
    if (hvitRunde) {
-      hvitTid --;
-      tidStreng = lagTidStreng(hvitTid);
+      hvitTid -= 0.01
+      tidStreng = lagTidStreng(Math.round(hvitTid));
       document.getElementById("hvitTid").innerHTML = tidStreng;
    } else {
-      roedTid --;
-      tidStreng = lagTidStreng(roedTid);
+      roedTid -= 0.01;
+      tidStreng = lagTidStreng(Math.round(roedTid));
       document.getElementById("roedTid").innerHTML = tidStreng;
    }
 }
@@ -52,13 +131,21 @@ function lagTidStreng(tid) {
 
    if (min === 0) {
       minStreng = "00:";
-   } else {
+   }
+   else if (min < 10){
+      minStreng = "0" + min;
+   }
+   else {
       minStreng = min;
    }
 
    if (sek === 0) {
       sekStreng = "00";
-   } else {
+   }
+   else if (sek < 10) {
+     sekStreng = "0" + sek
+   }
+   else {
       sekStreng = sek;
    }
 
@@ -66,21 +153,58 @@ function lagTidStreng(tid) {
 }
 
 // Start og stopp timer ved klikk
-document.getElementById("start_stop").addEventListener("click", function(event) {
-   if (stoppet) {
-      intervall = setInterval(counter, 1000);
-      stoppet = false;
-      roed_time()
+function start_stopp_tid (){
+     if (stoppet) {
+        intervall = setInterval(counter, 10);
+        stoppet = false;
+        roed_time();
 
-   } else {
-      clearInterval(intervall);
-      gronn_time()
-      stoppet = true;
-   }
-});
+     } else {
+        clearInterval(intervall);
+        gronn_time();
+        stoppet = true;
+     }
+  }
+function manual_stopp() {
+  if (start_game) {
+    start_game = false;
+  }
+  else {
+    start_game = true;
+  }
+  start_stopp_tid ();
+}
+
+function automatic_start_stop (naa_aks, naa_gyro, naa_cond) {
+  console.log("Jeg blir i hvertfall kalt på");
+  console.log(stein_aktivert);
+  if (start_game) {
+    if (naa_aks == 0 && naa_gyro == 0 && naa_cond == 0 && stein_paa_vei) {
+      console.log("Steinen har stoppet");
+      bytt_lag ();
+      start_stopp_tid ();
+      stein_paa_vei = false;
+    }
+    else if (naa_cond == 1){
+      console.log("Steinen er aktivert");
+      stein_aktivert = true;
+    }
+    else if(naa_cond == 0 && (naa_aks == 1 || naa_gyro == 1) && (stein_aktivert)){
+      console.log("Steinen er sluppet og i bevegelse");
+      start_stopp_tid();
+      stein_aktivert = false;
+      stein_paa_vei = true;
+    }
+  }
+
+}
+
+
+
+document.getElementById("start_stop").addEventListener("click", manual_stopp);
 
 // Endre lag manuelt
-document.getElementById("bytt_lag").addEventListener("click", function(event) {
+function bytt_lag (){
    if (hvitRunde === true) {
       hvitRunde = false;
       document.getElementById("roed").style.border = "solid #001f3f";
@@ -90,7 +214,11 @@ document.getElementById("bytt_lag").addEventListener("click", function(event) {
       document.getElementById("hvit").style.border = "solid #001f3f";
       document.getElementById("roed").style.border = "white";
    }
-});
+}
+
+document.getElementById("bytt_lag").addEventListener("click", bytt_lag);
+
+
 
 // Oppdater tid hvis bruker manuelt endrer tid
 document.getElementById("settTid").addEventListener("click", function(event) {

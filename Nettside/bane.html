@@ -7,17 +7,34 @@
       <title>Automatisk tidtakning</title>
    </head>
 
+
 <body id="body">
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-firestore.js"></script>
+
+
+
+
       <ul> <! Navigasjonslinja>
 	 <li> <a href="index.html"> Timing Is Easy </a></li>
 	 <li><a class="active">Automatisk tidtakning</a></li>
 	 <li><a href="index.html#om-oss">Hva vi tilbyr</a></li>
-	 <li><a href="contact.asp">Kontakt Oss</a></li>
+	 <li><a href="index.html#kontakt_oss">Kontakt Oss</a></li>
       </ul>
 
 <div id = "hele-grid" class="grid-container">
 
-	 <div class="overhead">
+
+
+   <div class="overhead">
 	    <h1> LIVE TIDTAKNING </h1>
 	 </div>
 
@@ -50,7 +67,7 @@
         <div class="hele">  <! Denne klassen gjør at den bruker alle gridelementene og putter ting i midten>
   	       <div>
                <! Knappen for å starte og stoppe tiden>
-               <button id="start_stop" ty pe="button">Start</button>
+               <button id="start_stop" type="button">Start</button>
   	       </div>
 
   	       <div>
@@ -99,7 +116,7 @@
           <div class="hele">  <! Denne klassen gjør at den bruker alle gridelementene og putter ting i midten>
     	       <div>
                  <! Knappen for å starte og stoppe tiden>
-                 <button id="start_stop" ty pe="button">Start</button>
+                 <button id="start_stop" type="button">Start</button>
     	       </div>
 
     	       <div>
@@ -150,7 +167,7 @@
         <div class="hele">  <! Denne klassen gjør at den bruker alle gridelementene og putter ting i midten>
   	       <div>
                <! Knappen for å starte og stoppe tiden>
-               <button id="start_stop" ty pe="button">Start</button>
+               <button id="start_stop" type="button">Start</button>
   	       </div>
 
   	       <div>
@@ -171,11 +188,19 @@
   </div>
 
 	 </div>
+<div>
+      <textarea required placeholder="aks" id="nyaks" maxlength="1" rows="1"
+      cols="2"></textarea>
+      <textarea required wrap="soft" placeholder="gyro" maxlength="1" id="nygyro" rows="1"
+      cols="2"></textarea>
+      <textarea required placeholder="cond" id="nycond" maxlength="1" rows="1"
+      cols="2"></textarea>
 
+      <button id="firebase"> Vis bane 3</button>
+<p id ="cond"> Cond: </p> <p id ="aks"> Aks </p> <p id="gyro"> Gyro: </p>
+</div>
 
-
-
-
+      <script src="js/firebase.js"></script>
       <script src="js/tidtaking.js"></script>
       <script src = "js/forsvinn.js"> </script>
 

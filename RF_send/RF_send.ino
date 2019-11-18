@@ -6,8 +6,7 @@ const byte address[6] = "00001"; //må være lik på mottaker
 
 int maks_maalinger = 10;		//def variabler og pekere
 int sekv_nr = 0;
-int* med_denne;
-int* med_forrige;
+long* med_denne;
 int ant_var = 6;
 long* send_array;
 long* gammel_send_array;
@@ -24,8 +23,7 @@ boolean new_kap_mvmt = false;
 boolean send_pakke = false;
 
 void setup() {
-   med_denne = malloc((ant_var) * sizeof(int));
-   med_forrige = malloc((ant_var) * sizeof(int));
+   med_denne = malloc((ant_var) * sizeof(long));
    send_array = malloc((ant_var + 1) * sizeof(long));
    gammel_send_array = malloc((ant_var + 1) * sizeof(long));
    ja_nei = malloc((ant_var + 1) * sizeof(boolean));
@@ -37,6 +35,7 @@ void setup() {
    setup_gyro_aks();
 }
 
+/* afhladjfhdakljhfkjdsahfkhaskfjhdfajklhj dfsahf afdklhkl */
 void setup_radio() {                  
   Serial.begin(9600);                   //setter data-raten i bits per sekund 
   /* delay(100);                           //trenger ikke målinger så ofte; setter derfor på delay - for bedre ytelse på resten */
@@ -46,8 +45,12 @@ void setup_radio() {
   myRadio.setDataRate( RF24_250KBPS ) ; //lavest mulig dataoverføring for lengre rekkevidde
   myRadio.openWritingPipe(address);     //setter destinasjon for hvor vi tenker å skrive
   myRadio.stopListening();                    //stopper forrige punkt
-
 }
+
+
+
+/* Samler en maaling fra kap.-senor og gyro, kaller på median-funksjon, threshold-funksjon og
+ * sjekker om verdier skal sendes */
 void loop() {
    kap_maaling();
    gyro_maaling();

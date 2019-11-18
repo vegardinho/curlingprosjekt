@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include <stdlib.h>
 
-int *maalinger;		//def peker
+long *maalinger;		//def peker
 
 const int MPU_addr=0x68;  // I2C address of the MPU-6050
 boolean akkurat_startet;
@@ -10,14 +10,13 @@ boolean akkurat_startet;
 void setup_gyro_aks(){
   
    //Allokerer minne
-   maalinger = malloc(ant_var * maks_maalinger * sizeof(int));
+   maalinger = malloc(ant_var * maks_maalinger * sizeof(long));
 
    //Nullstiller verdier
    for (int i = 0; i < ant_var * maks_maalinger; i++) {
       maalinger[i] = 0;
       if (i % 5 == 0) {
 	      med_denne[i / 5] = 0;
-	      med_forrige[i / 5] = 0;
       }
    }
 
@@ -37,18 +36,6 @@ void setup_gyro_aks(){
    Wire.write(0x1C); //akselerometer config
    Wire.write(0b00011000);
    Wire.endTransmission();
-}
-
-void process_gyro_data(int* gyro_arr) {
-  gyro_arr[0] = gyro_arr[0] / 131.0;
-  gyro_arr[1] = gyro_arr[1] / 131.0;
-  gyro_arr[2] = gyro_arr[2] / 131.0;
-}
-
-void process_accel_data(int* acc_arr) {
-  acc_arr[0] = acc_arr[0] / 16.3840;
-  acc_arr[1] = acc_arr[1] / 16.3840;
-  acc_arr[2] = acc_arr[2] / 16.3840;
 }
 
 /* Lagrer verdi, og sender medianverdien dersom verdien er nummer 50 i rekken */
@@ -74,14 +61,25 @@ void gyro_maaling(){
    maalinger[maks_maalinger*5 + sekv_nr] = Wire.read()<<8|Wire.read();  
 }
 
-int* gyro_median() {
+//TODO: absoluttverdi av maalinger
+long* gyro_median() {
    for (int i = 0; i < ant_var; i++) {
-      qsort(maalinger + i*maks_maalinger, maks_maalinger, sizeof(int), int_compare);
-      med_forrige[i] = med_denne[i];
+      qsort(maalinger + i*maks_maalinger, maks_maalinger, sizeof(long), long_compare);
       med_denne[i] = maalinger[i*maks_maalinger + maks_maalinger/2];
    }
 
+   for (int i = 0; i < maks_maalinger; i++) {
+      Serial.println(maalinger[i]);
+   }
+   Serial.println();
+
    return med_denne;
+}
+
+long long_compare(const void *a, const void *b) {
+   long* tall_a = (long*) a;
+   long* tall_b = (long*) b;
+   return *tall_a - *tall_b;
 }
 
 void reset_aks_gyro() {

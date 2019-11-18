@@ -5,10 +5,15 @@ document.getElementById("hvit");
 var stoppet = true;
 document.getElementById("hvit").style.border = "solid #001f3f";
 
+document.getElementById("start_stopp_knapp").onmouseover = function()
+  {
+    this.style.backgroundColor = "#00ff00";
+  }
 document.getElementById("start_stopp_knapp").onmouseout = function()
 {
   this.style.backgroundColor = "white";
 }
+
 function gronn_time() {
     document.getElementById("start_stopp_knapp").style.backgroundColor = "white";
     document.getElementById("start_stopp_knapp").style.border = "solid #00ff00";

@@ -9,10 +9,11 @@
 
    <body>
 
-      <ul>
+
+      <ul> <! Navigasjonslinja>
 	 <li> <a href="index.html"> Timing Is Easy </a></li>
 	 <li><a class="active">Automatisk tidtakning</a></li>
-	 <li><a href="om-oss.html">Hva vi tilbyr</a></li>
+	 <li><a href="index.html#om-oss">Hva vi tilbyr</a></li>
 	 <li><a href="contact.asp">Kontakt Oss</a></li>
       </ul>
 
@@ -22,8 +23,9 @@
 	    <h1> LIVE TIDTAKNING </h1>
 	 </div>
 
-	 <div id="bane1">
-      <div class="timer">
+   <! Hele html koden for bane nr 1. ligger her. De to andre er stort sett helt like >
+   <div id="bane1">
+      <div class="timer"> <!Her lager jeg en grid med to kollonner>
         <div class="hele">
     	      <h2> Bane nr. 1 </h2>
         </div>
@@ -33,38 +35,44 @@
         <div class= "middle, lag2">
             <h3> Gul tid </h3>
         </div>
+            <! Her er koden for de to klokkene, "id"ene er hva javascriptet referer>
             <div id = "roed" class= "left">
                 <span id="roedTid">38:00</span>
             </div>
             <div id = "hvit" class="middle">
                 <span id="hvitTid">38:00</span>
             </div>
-        <div class="hele">
+
+        <div class="hele">  <! Denne klassen gjør at den bruker alle gridelementene og putter ting i midten>
   	       <div id="start_stop">
-  		         <button id="start_stopp_knapp" type="button">Start</button>
+               <! Knappen for å starte og stoppe tiden>
+               <button id="start_stopp_knapp" type="button">Start</button>
   	       </div>
 
   	       <div id="bytt_lag">
+               <! Knappen for å bytte lag>
   		         <button class="knapp2 success" type="button">Bytt lag</button>
   	       </div>
 	       <p>
 	       <h4> Endre tid </h4> <br>
-	       <textarea required placeholder="00" id="nyMin" maxlength="2" rows="1"
-		  cols="2"></textarea>
-	       <textarea required wrap="soft" placeholder="00" maxlength="2" id="nySek" rows="1"
-		  cols="2"></textarea>
-        <br>
-        <button class="knapp2 info" id="settTid">Endre</button>
+              <!Området for å skifte tiden til et av lagene>
+            	       <textarea required placeholder="00" id="nyMin" maxlength="2" rows="1"
+            		  cols="2"></textarea>
+            	       <textarea required wrap="soft" placeholder="00" maxlength="2" id="nySek" rows="1"
+            		  cols="2"></textarea>
+                  <br>
+                  <button class="knapp2 info" id="settTid">Endre</button>
    	   </div>
     </div>
 
 
 	 </div>
+   <! Dette er en knapp for å vise bane 2>
    <button class= "knapp1 banenr2" id ="knapp1" onclick="forsvinn()"> Vis bane 2</button>
 		  <div id="bane2" class="hidden">
         <div class="timer">
           <div class="hele">
-      	      <h2> Bane nr. 1 </h2>
+      	      <h2> Bane nr. 2 </h2>
           </div>
           <div class= "left, lag1">
               <h3> Rød tid </h3>
@@ -99,12 +107,12 @@
 
 
   	 </div>
-
+    <! Dette er en knapp for å vise bane 3>
     <button class="knapp1 banenr3" id="knapp2" onclick="forsvinn2()"> Vis bane 3</button>
 	  <div id="bane3" class="hidden">
       <div class="timer">
         <div class="hele">
-    	      <h2> Bane nr. 1 </h2>
+    	      <h2> Bane nr. 3 </h2>
         </div>
         <div class= "left, lag1">
             <h3> Rød tid </h3>

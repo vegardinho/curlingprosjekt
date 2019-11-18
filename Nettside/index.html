@@ -12,35 +12,100 @@
   <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
 </head>
 
-<body>
-	<ul>
-		<li><a class="active" href="index.html">Tittel på produktet? </a></li>
+<body onscroll="myFunction()">
+<nav>
+  <ul>
+		<li><a onclick="at_top()" id = "lengst-oppe" class="active" href="#top"> Timing Is Easy </a></li>
 	  <li><a href="bane.html"> Automatisk tidtakning</a></li>
-	  <li><a href="om-oss.html">Hva vi tilbyr</a></li>
+	  <li><a onclick="at_lengerned()" id = "litt-lengre-ned" href="#om-oss">Hva vi tilbyr</a></li>
 	  <li><a href="contact.asp">Kontakt Oss</a></li>
 	</ul>
-	<div class="container">
-		<img src="images/curling2.png" style ="100%"/>
+</nav>
+<section id ="top">
+  <div id="bilde" class="container">
+		<img src="images/curling.jpg" style ="100%"/>
 		<div class="centered_top">
-		<h1>Velkommen til fremtidens tidtakning</h1>
+      <h1 id="stupid" class="overskriftBig"> Timing Is Easy </h1>
 		</div>
 		<div class="centered">
-		<form style=text-align:center; banenummer="bane_nummer.php" target="bane.html">
+		<form class="overskrift" banenummer="bane_nummer.php" target="bane.html">
 		BANENUMMER:<br>
-		<input type="text" name="banenummer" value=""/> <br>
-		<input type="submit" value="Send"/>
+		<input class="knapp2 success" type="text" name="banenummer" value=""/> <br>
+		<input class="knapp2 success" type="submit" value="Send"/>
 	</form>
 	<br>
-
-	<form style=text-align:center; action="/qr_scan.php>
-
-		<input type="submit" value="Go to QR-scanner" />
 	</div>
 	</div>
-  <div>
+  </section>
+  <section id = "om-oss">
+  <div  class="grid-container_første_side">
+    <div class="item1">
+      <h2 class= "overskriftBig"> Hva vi tilbyr </h2>
+        <p> Curling-Norge trenger turneringer og konkuransser for å holde seg i verdenstoppen.
+        Det trengs på topp- og breddenivå, i juniorklasser og hos mosjonistene.
+        <br><br>
+        Sporten er fylt av mennesker som vil den godt, av folk som ofrer fritid og helger
+        for å kunne stille som frivillige. Foreldre og entusiaster gjør en heltemodig innsats,
+        men det er tidskrevende oppgave, preget av repetitive arbeidsoppgaver.
+        <br><br>
+        Dette gjelder særlig oppgaven å holde tiden under kamper.
+        <br><br>
+        På det nåværende tidspunktet trengs det fem mennesker for å kunne holde tiden på fire baner,
+        og med konkuransser fra 9 på morgenen til 10 på kvelden, er det ikke vanskelig å forstå at en fortsatt
+        relativt liten sport som curlig kan oppleve det
+        som problematisk å samle nok personell og frivellige til alle kampene.
+        <br><br>
+        Det er her vi i <b>TIE</b> kommer inn.
+      </p>
+    </div>
+        <div class="item2">
+          <h1> Bilde av oss </h1>
+        <img src="images/curling.jpg" width=80% height=80%>
+        </div>
+    <div class = "item3">
+      <h1> Bilde av noe </h1>
+      <img src="images/curling.jpg" width="80%" height="80%">
+    </div>
+    <div class = "item4">
+      <h4> Vi hadde et mål for øyet: </h4> <br>
+      <b> Å gi en enkel løsning på et vanskelig problem </b>
 
+      <p> Gjennom elektronikk, sensorteknologi og programvare ønsker vi å gi Curling-Norge muligheten å levere et helhetlig
+      produkt som skal være rimelig, enkelt å innstallere, og brukervennlig.
+      <br><br>
+      Enhver skal kunne plukke opp mobilen, taste eller
+      scanne inn banenummeret, og kunne spille en kamp, hvor de internasjonalle reglene
+      for tidtakning følges, og spillerne vil kunne følge med på tiden live fra mobilen sin.
+      <br><br>
+      Dette vil gjøre det mulig for alt fra proffer til amatører å spille treningskamper, turneringer og
+      konkuransser med presis tilbakemelding på sin tidsbruk.
+      <br><br>
+      Jobben der det før trengtes en til hver bane å holde oversikten, kan nå gjøres av
+      en som sitter med all dataen foran seg, og som kan gjennomføre eventuelle nødvendigheter
+      med å endre på tiden manuelt.
+      </p>
+    </div>
+    <div class="item5">
+      <h4> Vår produktpakke:</h4><br>
+      <b> En samlet pakke for én bane med:</b>
+      <br><br>
+      <div class ="liste">
+        <li> Arduino Uno x 17 </li> <br>
+        <li>ITG/MPU x 53 </li> <br>
+        <li>Kapasitanssensor x 2</li> <br>
+        <li>NRF24L01 x 28</li> <br>
+        <li> 9V batteri x 20</li> <br>
+        <li>Raspberry pi</li>
+      </div>
+      <br><br>
+      <b> Totalt: 5400 kr </b>
 
+      </div>
+    <div class="item6">
+      <h1> Bilde av produktpakke </h1>
+    </div>
   </div>
-
+</section>
+<script src="js/scroll.js"></script>
 </body>
 </html>

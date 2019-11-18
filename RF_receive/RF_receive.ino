@@ -8,9 +8,7 @@ boolean mottatt[3];
 
 void setup() 
 {
-   Serial.begin(115200);
-   delay(1000);
-
+   Serial.begin(9600);
    myRadio.begin(); 
    myRadio.setChannel(115); 
    myRadio.setPALevel(RF24_PA_MAX);

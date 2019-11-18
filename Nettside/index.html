@@ -16,7 +16,7 @@
 		<li><a onclick="at_top()" id = "lengst-oppe" class="active"> Timing Is Easy </a></li>
 	  <li><a href="bane.html"> Automatisk tidtakning</a></li>
 	  <li><a onclick="at_lengerned()" id = "litt-lengre-ned" href="#om-oss">Hva vi tilbyr</a></li>
-	  <li><a href="contact.asp">Kontakt Oss</a></li>
+	  <li><a href="#kontakt_oss">Kontakt Oss</a></li>
 	</ul>
 <section id ="top">
   <div id="bilde" class="container">
@@ -25,11 +25,11 @@
       <h1 id="stupid" class="overskriftBig"> Timing Is Easy </h1>
 		</div>
 		<div class="centered">
+          <textarea class = "banenummerinput_forside" required placeholder="Banenummer"
+          id="banenummer1" maxlength="5" rows="1"cols="6"></textarea>
+          <br>
+          <button id="banenummersend" class="knapp3 blaa"> Send </button>
 
-      <textarea id="input"></textarea>
-      <div>
-          <button id="save">Save</button>
-      </div>
 
     <!<form class="overskrift" banenummer="bane_nummer.php" target="bane.html"
 		BANENUMMER:<br>
@@ -63,11 +63,11 @@
     </div>
         <div class="item2">
           <h1> Bilde av oss </h1>
-        <img src="images/curling.jpg" width=80% height=80%>
+        <img src="images/curling.jpg">
         </div>
     <div class = "item3">
       <h1> Bilde av noe </h1>
-      <img src="images/curling.jpg" width="80%" height="80%">
+      <img src="images/curling.jpg">
     </div>
     <div class = "item4">
       <h4> Vi hadde et mål for øyet: </h4> <br>
@@ -111,8 +111,44 @@
 </section>
 <section id ="kontakt_oss">
   <div class = "grid-container_første_side">
-    <div class = "hele"
+    <div class = "hele">
+      <p class = "overskriftBig"> Kontakt oss </p>
+    </div>
+  <div class = "item3">
+      <img src ="images/curling.jpg">
+  </div>
+  <div class = "item4">
+    <div class="container-contact">
+        <form>
+          <br>
+          <div data-validate="Navn er nødvendig">
+            <input class="input" type="text" name="name" placeholder="Ditt Navn">
+          </div>
 
+          <div data-validate = "En gyldig e-post addresse er nødvendig: ola.nordmann@abc.no">
+            <input class="input" type="text" name="email" placeholder="Din E-mail">
+          </div>
+
+          <div>
+            <div>
+              <select class="selection" name="service">
+                <option>Hva gjelder henvendelsen?</option>
+                <option>Bestilling av produktet</option>
+                <option>Spørsmål til oss?</option>
+                <option>Kundeservice</option>
+              </select>
+            </div>
+          </div>
+          <div data-validate = "Beskjed er nødvendig">
+            <textarea class="kommentar" name="message" placeholder="Kommentar"></textarea>
+          </div>
+            <button class="knapp2 blaa">
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 </section>
   <script src="js/scroll.js"></script>
   <script src="js/forsvinn.js"></script>

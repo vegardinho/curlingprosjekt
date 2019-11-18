@@ -225,7 +225,10 @@ h4 {
 .hele {
   grid-column: 1 / 3;
   padding: 5px
-
+}
+.hele2 {
+  grid-column: 1 / 2;
+  padding: 5px
 }
 .grid-container > div {
   text-align: center;
@@ -304,25 +307,24 @@ div.hidden {
   margin: 8px;
   transition: 0.7s;
 }
-.success {
+.knapp3{
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  padding: 6px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  margin: 8px;
+  transition: 0.7s;
+}
+
+.blaa {
   border-color: #DDDDDD;
   color: #11111;
 }
-.success:hover {
-  background-color: #001f3f;;
-  color: white;
-}
-.info {
-  border-color: #DDDDDD;
-  color: #11111;
-}
-.info:hover {
+.blaa:hover {
   background: #001f3f;
   color: white;
-}
-.redbutton {
-  border-color: #f44336;
-  color: red
 }
 .banenr2 {
   border-color: #DDDDDD;
@@ -340,10 +342,7 @@ div.hidden {
   background: #7FDBFF;
   color: white;
 }
-.redbutton:hover {
-  background: #f44336;
-  color: white;
-}
+
  textarea {
   width: 85px;
   padding: 8px 13px;
@@ -352,7 +351,30 @@ div.hidden {
   resize: none;
   text-align: center;
  }
- #start_stopp_knapp{
+ .banenummerinput {
+   width: 240px;
+   padding: 8px 13px;
+   margin: 0 0;
+   box-sizing: border-box;
+   resize: none;
+   text-align: center;
+   border: 2px solid #001f3f;
+   font-size: 20px;
+ }
+ .banenummerinput_forside {
+   width: 240px;
+   padding: 8px 13px;
+   margin: 0 0;
+   box-sizing: border-box;
+   resize: none;
+   text-align: center;
+   border: 2px solid #001f3f;
+   font-size: 20px;
+ }
+ #banenummersend {
+
+ }
+ #start_stop{
    border: 2px solid black;
    background-color: white;
    color: black;
@@ -364,7 +386,44 @@ div.hidden {
    height:50px;
    width:200px;
  }
-@media screen and (max-width: 600px) {
+
+ .container-contact {
+   width: 100%;
+   height: 100%;
+   text-align: center;
+   border: solid 2px #001f3f;
+ }
+
+.input {
+  border: 1px solid black;
+  background-color: white;
+  color: black;
+  padding: 10px 40px;
+  font-size: 13px;
+  margin: 5px;
+}
+
+.kommentar {
+   width: 155px;
+   padding: 30px 40px;
+   margin: 10px;
+   box-sizing: content-box;
+   resize: both;
+   text-align: center;
+   border: 1px solid black;
+   font-size: 15px;
+}
+
+.selection{
+  width: 240px;
+  margin: 5px;
+  box-sizing: content-box;
+  resize: both;
+  text-align: center;
+  border: 1px solid black;
+  font-size: 15px;
+}
+@media screen and (max-width: 800px) {
   .banenr2 {
     display: none;
   }
@@ -388,17 +447,31 @@ div.hidden {
     font-size: 24px;
   }
   li a {
-    font-size: 10px;
+    font-size: 12px;
     display: block;
     color: white;
     text-align: center;
-    padding: 9px 11px;
+    padding: 10px 12px;
     text-decoration: none;
     transition: 0.5s;
   }
+  body {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  #roed {
+    font-size: 20px;
+    padding: 10px;
+    border: 2px solid white;
+  }
+  #hvit {
+    padding: 10px;
+    font-size: 20px;
+    border: 2px solid white;
+  }
 }
-@media screen and (max-width: 1100px) and (min-width: 600px) {
-  .banenr2 {
+@media screen and (max-width: 1100px) and (min-width: 800px) {
+  .banenr3 {
     display: none;
   }
   .grid-container {
@@ -411,12 +484,17 @@ div.hidden {
     font-size: 30px;
   }
   li a {
-    font-size: 12px;
+    font-size: 14px;
     display: block;
     color: white;
     text-align: center;
-    padding: 11px 13px;
+    padding: 12px 15px;
     text-decoration: none;
     transition: 0.5s;
   }
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
 }

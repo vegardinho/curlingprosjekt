@@ -23,6 +23,7 @@ boolean new_kap_mvmt = false;
 
 boolean send_pakke = false;
 
+<<<<<<< HEAD
 void setup() {			//setter av plass. definerer også elementene i listene: med_denne, med_forrige, maalinger og setter elementene lik 0
    med_denne = malloc((ant_var) * sizeof(int));
    med_forrige = malloc((ant_var) * sizeof(int));

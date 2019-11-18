@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include <stdlib.h>
 
-int *maalinger;
+int *maalinger;		//def peker
 
 const int MPU_addr=0x68;  // I2C address of the MPU-6050
 boolean akkurat_startet;

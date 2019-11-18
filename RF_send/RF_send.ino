@@ -19,7 +19,7 @@ boolean new_aks_mvmt = false;
 boolean old_gyro_mvmt = false;
 boolean new_gyro_mvmt = false;
 
-void setup() {
+void setup() {			//setter av plass. definerer også elementene i listene: med_denne, med_forrige, maalinger og setter elementene lik 0
    med_denne = malloc((ant_var) * sizeof(int));
    med_forrige = malloc((ant_var) * sizeof(int));
    send_array = malloc((ant_var + 1) * sizeof(long));
@@ -29,8 +29,8 @@ void setup() {
    kap_maalinger = malloc(sizeof(long) * maks_maalinger);      
  //sizeof - returnerer antall bytes, malloc - reserverer minne av spesifisert mengde */
 	
-   setup_radio();
-   setup_gyro_aks();
+   setup_radio();		//def i gyro_aks
+   setup_gyro_aks();		//def i RF_send
 
 }
 

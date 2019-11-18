@@ -13,7 +13,7 @@ void setup_gyro_aks(){
    maalinger = malloc(ant_var* maks_maalinger * sizeof(int));
 
    //Nullstiller verdier
-   for (int i = 0; i < maks_maalinger; i++) {
+   for (int i = 0; i < ant_var * maks_maalinger; i++) {
       maalinger[i] = 0;
       if (i % 5 == 0) {
 	      med_denne[i / 5] = 0;

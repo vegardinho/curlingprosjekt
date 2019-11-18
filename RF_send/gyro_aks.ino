@@ -39,25 +39,25 @@ void setup_gyro_aks(){
 }
 
 /* Lagrer verdi, og sender medianverdien dersom verdien er nummer 50 i rekken */
+   // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)     
+   // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L) */
+   // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L) */
+   //Hoppe over temp
+   // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L) */
+   // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L) */
+   // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L) */
 void gyro_maaling(){  
    Wire.beginTransmission(MPU_addr);
    Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
    Wire.endTransmission(false);
    Wire.requestFrom(MPU_addr,14,true);  // request a total of 14 registers
 
-   // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)     
    maalinger[maks_maalinger*0 + sekv_nr] = Wire.read()<<8|Wire.read();  
-   // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L) */
    maalinger[maks_maalinger*1 + sekv_nr] = Wire.read()<<8|Wire.read();  
-   // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L) */
    maalinger[maks_maalinger*2 + sekv_nr] = Wire.read()<<8|Wire.read();  
-   // 0x43 (GYRO_XOUT_H) & 0x44 (GYRO_XOUT_L) */
-   //Hoppe over temp
    Wire.read()<<8|Wire.read();
    maalinger[maks_maalinger*3 + sekv_nr] = Wire.read()<<8|Wire.read();  
-   // 0x45 (GYRO_YOUT_H) & 0x46 (GYRO_YOUT_L) */
    maalinger[maks_maalinger*4 + sekv_nr] = Wire.read()<<8|Wire.read();  
-   // 0x47 (GYRO_ZOUT_H) & 0x48 (GYRO_ZOUT_L) */
    maalinger[maks_maalinger*5 + sekv_nr] = Wire.read()<<8|Wire.read();  
 }
 
@@ -71,8 +71,8 @@ long* gyro_median() {
    for (int i = 0; i < maks_maalinger; i++) {
       Serial.println(maalinger[i]);
    }
-   Serial.println();
 
+   Serial.println();
    return med_denne;
 }
 

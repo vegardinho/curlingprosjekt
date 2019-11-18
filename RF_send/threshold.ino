@@ -20,7 +20,7 @@ const long AKS_SENS = 80;
 const long GYRO_SENS = 100;
 
 boolean aks_thresh(long* send_array, long* gammel_send_array) {
-      x = send_array[0];
+   x = send_array[0];
    y = send_array[1];
    z = send_array[2];
 
@@ -45,12 +45,12 @@ boolean aks_thresh(long* send_array, long* gammel_send_array) {
    endring_y = send_array[1] - gammel_send_array[1];
    endring_y = abs(endring_y);
    endring_z = send_array[2] - gammel_send_array[2];
-
    endring_z = abs(endring_z);
 
    if (endring_x > a_thresh_x || endring_y > a_thresh_y || endring_z > a_thresh_z) {
       return true;
    }
+
    return false;
 }
 
@@ -94,12 +94,6 @@ boolean kap_thresh(long* send_array, long* gammel_send_array) {
 
    kap_verdi = send_array[6];
    kap_verdi = abs(kap_verdi);
-   /*  */
-   /* kap_gammel = gammel_send_array[6]; */
-   /* kap_gammel = abs(kap_gammel); */
-   /*  */
-   /* kap_endring = kap_verdi - kap_gammel; */
-   /* kap_endring = abs(kap_endring); */
 
    if (kap_verdi > kap_threshold) {
       return true;

@@ -1,10 +1,10 @@
-#include <SPI.h>
-#include "RF24.h"		//bib for kommunisere mellom enheter
+#include <SPI.h>		//bib for kommunisere mellom enheter
+#include "RF24.h"		//
 
 RF24 myRadio (7, 8);		//setter CSN og CE pins. Vil være send og receive pin til SPI busen 
 byte address = "0001"; //må være lik på mottaker
 
-int maks_maalinger = 10;
+int maks_maalinger = 10;		//def variabler og pekere
 int sekv_nr = 0;
 int* med_denne;
 int* med_forrige;
@@ -12,9 +12,9 @@ int ant_var = 6;
 long* send_array;
 long* gammel_send_array;
 boolean* ja_nei;
-long* kap_maalinger;                          //def variabel
+long* kap_maalinger;                         
 
-boolean old_aks_mvmt = false;
+boolean old_aks_mvmt = false;		//def boolean
 boolean new_aks_mvmt = false;
 boolean old_gyro_mvmt = false;
 boolean new_gyro_mvmt = false;

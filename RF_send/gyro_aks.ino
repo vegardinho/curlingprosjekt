@@ -10,7 +10,7 @@ boolean akkurat_startet;
 void setup_gyro_aks(){
   
    //Allokerer minne
-   maalinger = malloc(ant_var* maks_maalinger * sizeof(int));
+   maalinger = malloc(ant_var * maks_maalinger * sizeof(int));
 
    //Nullstiller verdier
    for (int i = 0; i < maks_maalinger; i++) {

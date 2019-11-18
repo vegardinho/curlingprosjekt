@@ -23,6 +23,7 @@ boolean new_kap_mvmt = false;
 
 boolean send_pakke = false;
 
+void setup_radio()
 void setup() {
    med_denne = malloc((ant_var) * sizeof(int));
    med_forrige = malloc((ant_var) * sizeof(int));

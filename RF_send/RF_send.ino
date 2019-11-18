@@ -35,7 +35,6 @@ void setup() {
    setup_gyro_aks();
 }
 
-/* afhladjfhdakljhfkjdsahfkhaskfjhdfajklhj dfsahf afdklhkl */
 void setup_radio() {                  
   Serial.begin(9600);                   //setter data-raten i bits per sekund 
   /* delay(100);                           //trenger ikke målinger så ofte; setter derfor på delay - for bedre ytelse på resten */
@@ -135,5 +134,4 @@ void print(long* verdier) {
    Serial.print(" | GyY = "); Serial.print(verdier[4]);
    Serial.print(" | GyZ = "); Serial.print(verdier[5]);
    Serial.print(" | Kap = "); Serial.println(verdier[6]);
-
 }

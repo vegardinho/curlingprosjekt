@@ -7,9 +7,7 @@
       <title>Automatisk tidtakning</title>
    </head>
 
-   <body>
-
-
+<body id="body">
       <ul> <! Navigasjonslinja>
 	 <li> <a href="index.html"> Timing Is Easy </a></li>
 	 <li><a class="active">Automatisk tidtakning</a></li>
@@ -27,8 +25,14 @@
    <div id="bane1">
       <div class="timer"> <!Her lager jeg en grid med to kollonner>
         <div class="hele">
-    	      <h2> Bane nr. 1 </h2>
-        </div>
+          <h2 id="banenummer_1_tekst" class="hidden"><h2>
+          <div id="sett_banenummer">
+              <textarea class = "banenummerinput" required placeholder="Banenummer"
+              id="banenummer1" maxlength="4" rows="1"cols="6"></textarea>
+              <br>
+              <button id="banenummersend" class="knapp3 blaa"> Sett banenr. </button>
+            </div>
+          </div>
         <div class= "left, lag1">
             <h3> Rød tid </h3>
         </div>
@@ -44,14 +48,14 @@
             </div>
 
         <div class="hele">  <! Denne klassen gjør at den bruker alle gridelementene og putter ting i midten>
-  	       <div id="start_stop">
+  	       <div>
                <! Knappen for å starte og stoppe tiden>
-               <button id="start_stopp_knapp" type="button">Start</button>
+               <button id="start_stop" ty pe="button">Start</button>
   	       </div>
 
-  	       <div id="bytt_lag">
+  	       <div>
                <! Knappen for å bytte lag>
-  		         <button class="knapp2 success" type="button">Bytt lag</button>
+  		         <button id="bytt_lag" class="knapp2 blaa" type="button">Bytt lag</button>
   	       </div>
 	       <p>
 	       <h4> Endre tid </h4> <br>
@@ -61,7 +65,7 @@
             	       <textarea required wrap="soft" placeholder="00" maxlength="2" id="nySek" rows="1"
             		  cols="2"></textarea>
                   <br>
-                  <button class="knapp2 info" id="settTid">Endre</button>
+                  <button class="knapp2 blaa" id="settTid">Endre</button>
    	   </div>
     </div>
 
@@ -92,7 +96,7 @@
     	       </div>
 
     	       <div id="bytt_lag">
-    		         <button class="knapp2 success" type="button">Bytt lag</button>
+    		         <button class="knapp2 blaa" type="button">Bytt lag</button>
     	       </div>
   	       <p>
   	       <h4> Endre tid </h4> <br>
@@ -101,7 +105,7 @@
   	       <textarea required wrap="soft" placeholder="00" maxlength="2" id="nySek" rows="1"
   		  cols="2"></textarea>
           <br>
-          <button class="knapp2 info" id="settTid">Endre</button>
+          <button class="knapp2 blaa" id="settTid">Endre</button>
      	   </div>
       </div>
 
@@ -132,7 +136,7 @@
   	       </div>
 
   	       <div id="bytt_lag">
-  		         <button class="knapp2 success" type="button">Bytt lag</button>
+  		         <button class="knapp2 blaa" type="button">Bytt lag</button>
   	       </div>
 	       <p>
 	       <h4> Endre tid </h4> <br>
@@ -141,13 +145,14 @@
 	       <textarea required wrap="soft" placeholder="00" maxlength="2" id="nySek" rows="1"
 		  cols="2"></textarea>
         <br>
-        <button class="knapp2 info" id="settTid">Endre</button>
+        <button class="knapp2 blaa" id="settTid">Endre</button>
    	   </div>
     </div>
 
 
 	 </div>
 </div>
+
 
 
 

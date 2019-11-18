@@ -8,19 +8,16 @@
   <meta name="author" content="Gruppe 17">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/behavior.js"></script>
   <link rel=stylesheet href="https://s3-us-west-2.amazonaws.com/colors-css/2.2.0/colors.min.css">
 </head>
 
 <body onscroll="myFunction()">
-<nav>
   <ul>
-		<li><a onclick="at_top()" id = "lengst-oppe" class="active" href="#top"> Timing Is Easy </a></li>
+		<li><a onclick="at_top()" id = "lengst-oppe" class="active"> Timing Is Easy </a></li>
 	  <li><a href="bane.html"> Automatisk tidtakning</a></li>
 	  <li><a onclick="at_lengerned()" id = "litt-lengre-ned" href="#om-oss">Hva vi tilbyr</a></li>
 	  <li><a href="contact.asp">Kontakt Oss</a></li>
 	</ul>
-</nav>
 <section id ="top">
   <div id="bilde" class="container">
 		<img src="images/curling.jpg" style ="100%"/>
@@ -28,11 +25,17 @@
       <h1 id="stupid" class="overskriftBig"> Timing Is Easy </h1>
 		</div>
 		<div class="centered">
-		<form class="overskrift" banenummer="bane_nummer.php" target="bane.html">
+
+      <textarea id="input"></textarea>
+      <div>
+          <button id="save">Save</button>
+      </div>
+
+    <!<form class="overskrift" banenummer="bane_nummer.php" target="bane.html"
 		BANENUMMER:<br>
-		<input class="knapp2 success" type="text" name="banenummer" value=""/> <br>
-		<input class="knapp2 success" type="submit" value="Send"/>
-	</form>
+		<!<input class="knapp2 success" type="text" name="banenummer" value=""/ <br
+		<!<input class="knapp2 success" type="submit" value="Send"/
+	</form
 	<br>
 	</div>
 	</div>
@@ -106,6 +109,12 @@
     </div>
   </div>
 </section>
-<script src="js/scroll.js"></script>
+<section id ="kontakt_oss">
+  <div class = "grid-container_første_side">
+    <div class = "hele"
+
+</section>
+  <script src="js/scroll.js"></script>
+  <script src="js/forsvinn.js"></script>
 </body>
 </html>

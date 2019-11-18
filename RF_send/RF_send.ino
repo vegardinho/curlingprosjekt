@@ -19,6 +19,7 @@ boolean new_aks_mvmt = false;
 boolean old_gyro_mvmt = false;
 boolean new_gyro_mvmt = false;
 
+void setup_radio()
 void setup() {
    med_denne = malloc((ant_var) * sizeof(int));
    med_forrige = malloc((ant_var) * sizeof(int));

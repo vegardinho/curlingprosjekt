@@ -74,9 +74,10 @@ void gyro_maaling(){
    maalinger[maks_maalinger*5 + sekv_nr] = Wire.read()<<8|Wire.read();  
 }
 
+//sorterer listen "maalinger" 10 for 10 (elementer) for så å regne ut medianen i de 10 sorterte elementene
 int* gyro_median() {
    for (int i = 0; i < ant_var; i++) {
-      qsort(maalinger + i*maks_maalinger, maks_maalinger, sizeof(int), int_compare);
+      qsort(maalinger + i*maks_maalinger, maks_maalinger, sizeof(int), int_compare);	//int_compare er def. i "RF_send"
       med_forrige[i] = med_denne[i];
       med_denne[i] = maalinger[i*maks_maalinger + maks_maalinger/2];
    }

@@ -51,7 +51,7 @@ void process_accel_data(int* acc_arr) {
   acc_arr[2] = acc_arr[2] / 16.3840;
 }
 
-/* Lagrer verdi, og sender medianverdien dersom verdien er nummer 50 i rekken */
+/*får inn verdiene fra gyro og aks. lager en liste med første de 10 første verdiene for x-akse akelerometer osv*/ 
 void gyro_maaling(){  
    Wire.beginTransmission(MPU_addr);
    Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)

@@ -16,8 +16,10 @@ long x_old;
 long y_old;
 long z_old;
 
+const long SENSITIVITY = 6000000;
+
 boolean aks_thresh(long* send_array, long* gammel_send_array) {
-   x = send_array[0];
+      x = send_array[0];
    y = send_array[1];
    z = send_array[2];
 
@@ -33,9 +35,9 @@ boolean aks_thresh(long* send_array, long* gammel_send_array) {
    y_old = abs(y_old);
    z_old = abs(z_old);
 
-   long a_thresh_x = 4000000;
-   long a_thresh_y = 4000000;
-   long a_thresh_z = 4000000;
+   long a_thresh_x = SENSITIVITY;
+   long a_thresh_y = SENSITIVITY;
+   long a_thresh_z = SENSITIVITY;
 
    endring_x = send_array[0] - gammel_send_array[0];
    endring_x = abs(endring_x);
@@ -68,9 +70,9 @@ boolean gyro_thresh(long* send_array, long* gammel_send_array) {
    y_old = abs(y_old);
    z_old = abs(z_old);
 
-   long g_thresh_x = 4000000;
-   long g_thresh_y = 4000000;
-   long g_thresh_z = 4000000;
+   long g_thresh_x = SENSITIVITY;
+   long g_thresh_y = SENSITIVITY;
+   long g_thresh_z = SENSITIVITY;
 
    endring_x = send_array[3] - gammel_send_array[3];
    endring_x = abs(endring_x);
@@ -91,14 +93,14 @@ boolean kap_thresh(long* send_array, long* gammel_send_array) {
 
    kap_verdi = send_array[6];
    kap_verdi = abs(kap_verdi);
+   /*  */
+   /* kap_gammel = gammel_send_array[6]; */
+   /* kap_gammel = abs(kap_gammel); */
+   /*  */
+   /* kap_endring = kap_verdi - kap_gammel; */
+   /* kap_endring = abs(kap_endring); */
 
-   kap_gammel = gammel_send_array[6];
-   kap_gammel = abs(kap_gammel);
-
-   kap_endring = kap_verdi - kap_gammel;
-   kap_endring = abs(kap_endring);
-
-   if (kap_endring > kap_threshold) {
+   if (kap_verdi > kap_threshold) {
       return true;
    }
    return false;

@@ -12,8 +12,8 @@ void setup_gyro_aks(){
    //Allokerer minne
    maalinger = malloc(ant_var * maks_maalinger * sizeof(int));
 
-   //setter alle plassene til listene: maalinger, med_denne og med_forrige lik 0
-   for (int i = 0; i < maks_maalinger; i++) {
+   //Nullstiller verdier
+   for (int i = 0; i < ant_var * maks_maalinger; i++) {
       maalinger[i] = 0;
       if (i % 5 == 0) {
 	      med_denne[i / 5] = 0;

@@ -1,8 +1,8 @@
 #include <SPI.h>		//bib for kommunisere mellom enheter
 #include "RF24.h"		//
 
-RF24 myRadio (7, 8);		//setter CSN og CE pins. Vil være send og receive pin til SPI busen 
-byte address = "0001"; //må være lik på mottaker
+RF24 myRadio (9, 10);		//setter CSN og CE pins. Vil være send og receive pin til SPI busen 
+const byte address[6] = "00001"; //må være lik på mottaker
 
 int maks_maalinger = 10;		//def variabler og pekere
 int sekv_nr = 0;
@@ -18,6 +18,10 @@ boolean old_aks_mvmt = false;		//def boolean
 boolean new_aks_mvmt = false;
 boolean old_gyro_mvmt = false;
 boolean new_gyro_mvmt = false;
+boolean old_kap_mvmt = false;
+boolean new_kap_mvmt = false;
+
+boolean send_pakke = false;
 
 void setup() {			//setter av plass. definerer også elementene i listene: med_denne, med_forrige, maalinger og setter elementene lik 0
    med_denne = malloc((ant_var) * sizeof(int));
@@ -31,7 +35,6 @@ void setup() {			//setter av plass. definerer også elementene i listene: med_de
 	
    setup_radio();		//def i gyro_aks
    setup_gyro_aks();		//def i RF_send
-
 }
 
 void setup_radio() {                  
@@ -60,41 +63,52 @@ void loop() {
       send_array[ant_var] = kap_median();
 
       new_aks_mvmt = aks_thresh(send_array, gammel_send_array);
-      if (new_aks_mvmt && !old_aks_mvmt || !new_aks_mvmt && old_aks_mvmt) {
-	    ja_nei[0] = true;
-      } else {
+      if (new_aks_mvmt && !old_aks_mvmt) {
+	 ja_nei[0] = true;
+	 send_pakke= true;
+      } else if (!new_aks_mvmt && old_aks_mvmt) {
 	 ja_nei[0] = false;
+	 send_pakke= true;
       }
-      old_aks_mvmt = new_aks_mvmt;
 
       new_gyro_mvmt = gyro_thresh(send_array, gammel_send_array);
-      if (new_gyro_mvmt && !old_gyro_mvmt || !new_gyro_mvmt && old_aks_mvmt) {
-	    ja_nei[1] = true;
-      } else {
+      if (new_gyro_mvmt && !old_gyro_mvmt) {
+	 ja_nei[1] = true;
+	 send_pakke= true;
+      } else if (!new_gyro_mvmt && old_gyro_mvmt) {
 	 ja_nei[1] = false;
+	 send_pakke= true;
       }
-      old_gyro_mvmt = new_gyro_mvmt;
 
-      if (kap_thresh(send_array, gammel_send_array)) {
+      new_kap_mvmt = kap_thresh(send_array, gammel_send_array); 
+      if (new_kap_mvmt) {
 	 ja_nei[2] = true;
       } else {
 	 ja_nei[2] = false;
       }
+      if (new_kap_mvmt != old_kap_mvmt) {
+	 send_pakke = true;
+      }
 
-      if (ja_nei[0] || ja_nei[1] || ja_nei[2]) {
+
+	 if (send_pakke) {
 	 send(ja_nei, sizeof(boolean), 3);
 	 print_ja_nei();
 	 /* send(send_array, sizeof(int), 7); */
       }
 
-      /* print(send_array); */
+      old_kap_mvmt = new_kap_mvmt;
+      old_gyro_mvmt = new_gyro_mvmt;
+      old_aks_mvmt = new_aks_mvmt;
+      send_pakke= false;   
 
+      /* print(send_array); */
       sekv_nr = 0;
    }
 }
 
 void send(void* verdier, int str, int ant) {
-   myRadio.write(&verdier, str*ant);
+   myRadio.write(verdier, str*ant);
 }
 
 //sammenligner to tall 
@@ -106,8 +120,8 @@ int int_compare(const void *a, const void *b) {
 
 void print_ja_nei() {
    Serial.print("Aks = "); Serial.print(ja_nei[0]);
-   Serial.print("Gyro = "); Serial.print(ja_nei[1]);
-   Serial.print("Kap = "); Serial.print(ja_nei[2]);
+   Serial.print(" Gyro = "); Serial.print(ja_nei[1]);
+   Serial.print(" Kap = "); Serial.print(ja_nei[2]);
    Serial.print("\n");
 }
 

@@ -1,3 +1,9 @@
+var dbAdd = [];
+var dbRecv = [];
+var dbDiff = [];
+
+var av = 0;
+
 //Firebase kode
   // Your web app's Firebase configuration
   var firebaseConfig = {
@@ -19,6 +25,7 @@
   var output = document.getElementById('output');
   var steiner = database.ref("data");
 
+// Legger til steininfo i database
 function addStein() {
       var ny_aks = parseInt(document.getElementById("nyaks").value);
       var ny_gyro = parseInt(document.getElementById("nygyro").value);
@@ -29,6 +36,8 @@ function addStein() {
         "gyro": ny_gyro,
         "cond": ny_cond
       }
+
+      dbAdd.push(Date.now());
       pushStein(nyStein);
   }
 
@@ -50,7 +59,24 @@ let aks = document.getElementById("aks");
 let gyro = document.getElementById("gyro");
 let cond = document.getElementById("cond");
 
+// Oppdaterer verdier for aks, gyro og kap basert på databaseverdier, og kaller på auto_start_stop()
 function visSteiner(snapshot) {
+   dbRecv.push(Date.now());
+
+   var recvInd = dbRecv.length - 1;
+   var addInd = dbAdd.length - 1;
+
+   var diff = dbRecv[recvInd] - dbAdd[addInd];
+   dbDiff.push(diff);
+
+   if (diff != NaN) {
+      var ant = ant + 1;
+      var forrigeSum = av * (ant);
+      av = (forrigeSum + diff) / (ant + 1);
+      console.log(diff);
+      console.log(av);
+   }
+
   var stein = snapshot.val();
   var naa_aks = `${stein.aks}`;
   var naa_gyro = `${stein.gyro}`;
@@ -63,6 +89,7 @@ function visSteiner(snapshot) {
 
 }
 
+// Kall på visSteiner() hvis noe legges til i databasen
 steiner.on('child_added', visSteiner);
 
 knapp = document.getElementById("firebase");
@@ -165,6 +192,7 @@ function start_stopp_tid (){
         stoppet = true;
      }
   }
+
 function manual_stopp() {
   if (start_game) {
     start_game = false;
@@ -175,8 +203,9 @@ function manual_stopp() {
   start_stopp_tid ();
 }
 
+
 function automatic_start_stop (naa_aks, naa_gyro, naa_cond) {
-  console.log(stein_aktivert);
+  // console.log(stein_aktivert);
   if (start_game) {
     if (naa_aks == 0 && naa_gyro == 0 && naa_cond == 0 && stein_paa_vei) {
       console.log("Steinen har stoppet");
@@ -200,6 +229,7 @@ function automatic_start_stop (naa_aks, naa_gyro, naa_cond) {
 
 
 
+// Kall på manual_stopp() hvis noen klikker på start-stopp-knappen
 document.getElementById("start_stop").addEventListener("click", manual_stopp);
 
 // Endre lag manuelt

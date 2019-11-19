@@ -17,7 +17,7 @@
   // Get a reference to the database service
   let database = firebase.database();
   var output = document.getElementById('output');
-  let steiner = database.ref("data");
+  var steiner = database.ref("data");
 
 function addStein() {
       var ny_aks = parseInt(document.getElementById("nyaks").value);
@@ -45,7 +45,7 @@ var naa_gyro = 0;
 var naa_cond = 0;
 
 
-var steinRef = database.ref('data');
+//var steinRef = database.ref('data');
 let aks = document.getElementById("aks");
 let gyro = document.getElementById("gyro");
 let cond = document.getElementById("cond");
@@ -63,7 +63,7 @@ function visSteiner(snapshot) {
 
 }
 
-steinRef.on('child_added', visSteiner);
+steiner.on('child_added', visSteiner);
 
 knapp = document.getElementById("firebase");
 console.log(knapp);
@@ -176,7 +176,6 @@ function manual_stopp() {
 }
 
 function automatic_start_stop (naa_aks, naa_gyro, naa_cond) {
-  console.log("Jeg blir i hvertfall kalt på");
   console.log(stein_aktivert);
   if (start_game) {
     if (naa_aks == 0 && naa_gyro == 0 && naa_cond == 0 && stein_paa_vei) {
@@ -185,7 +184,7 @@ function automatic_start_stop (naa_aks, naa_gyro, naa_cond) {
       start_stopp_tid ();
       stein_paa_vei = false;
     }
-    else if (naa_cond == 1){
+    else if (naa_cond == 1 && (naa_aks == 1 || naa_gyro == 1)){
       console.log("Steinen er aktivert");
       stein_aktivert = true;
     }

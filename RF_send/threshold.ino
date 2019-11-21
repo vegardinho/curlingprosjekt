@@ -16,10 +16,11 @@ long x_old;
 long y_old;
 long z_old;
 
-const long SENSITIVITY = 6000000;
+const long AKS_SENS = 80;
+const long GYRO_SENS = 100;
 
 boolean aks_thresh(long* send_array, long* gammel_send_array) {
-      x = send_array[0];
+   x = send_array[0];
    y = send_array[1];
    z = send_array[2];
 
@@ -35,21 +36,21 @@ boolean aks_thresh(long* send_array, long* gammel_send_array) {
    y_old = abs(y_old);
    z_old = abs(z_old);
 
-   long a_thresh_x = SENSITIVITY;
-   long a_thresh_y = SENSITIVITY;
-   long a_thresh_z = SENSITIVITY;
+   long a_thresh_x = AKS_SENS;
+   long a_thresh_y = AKS_SENS;
+   long a_thresh_z = AKS_SENS;
 
    endring_x = send_array[0] - gammel_send_array[0];
    endring_x = abs(endring_x);
    endring_y = send_array[1] - gammel_send_array[1];
    endring_y = abs(endring_y);
    endring_z = send_array[2] - gammel_send_array[2];
-
    endring_z = abs(endring_z);
 
    if (endring_x > a_thresh_x || endring_y > a_thresh_y || endring_z > a_thresh_z) {
       return true;
    }
+
    return false;
 }
 
@@ -70,9 +71,9 @@ boolean gyro_thresh(long* send_array, long* gammel_send_array) {
    y_old = abs(y_old);
    z_old = abs(z_old);
 
-   long g_thresh_x = SENSITIVITY;
-   long g_thresh_y = SENSITIVITY;
-   long g_thresh_z = SENSITIVITY;
+   long g_thresh_x = GYRO_SENS;
+   long g_thresh_y = GYRO_SENS;
+   long g_thresh_z = GYRO_SENS;
 
    endring_x = send_array[3] - gammel_send_array[3];
    endring_x = abs(endring_x);
@@ -93,12 +94,6 @@ boolean kap_thresh(long* send_array, long* gammel_send_array) {
 
    kap_verdi = send_array[6];
    kap_verdi = abs(kap_verdi);
-   /*  */
-   /* kap_gammel = gammel_send_array[6]; */
-   /* kap_gammel = abs(kap_gammel); */
-   /*  */
-   /* kap_endring = kap_verdi - kap_gammel; */
-   /* kap_endring = abs(kap_endring); */
 
    if (kap_verdi > kap_threshold) {
       return true;

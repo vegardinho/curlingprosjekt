@@ -6,8 +6,7 @@ const byte address[6] = "00001"; //må være lik på mottaker
 
 int maks_maalinger = 10;		//def variabler og pekere
 int sekv_nr = 0;
-int* med_denne;
-int* med_forrige;
+long* med_denne;
 int ant_var = 6;
 long* send_array;
 long* gammel_send_array;
@@ -23,10 +22,8 @@ boolean new_kap_mvmt = false;
 
 boolean send_pakke = false;
 
-<<<<<<< HEAD
-void setup() {			//setter av plass. definerer også elementene i listene: med_denne, med_forrige, maalinger og setter elementene lik 0
-   med_denne = malloc((ant_var) * sizeof(int));
-   med_forrige = malloc((ant_var) * sizeof(int));
+void setup() {
+   med_denne = malloc((ant_var) * sizeof(long));
    send_array = malloc((ant_var + 1) * sizeof(long));
    gammel_send_array = malloc((ant_var + 1) * sizeof(long));
    ja_nei = malloc((ant_var + 1) * sizeof(boolean));
@@ -47,8 +44,12 @@ void setup_radio() {
   myRadio.setDataRate( RF24_250KBPS ) ; //lavest mulig dataoverføring for lengre rekkevidde
   myRadio.openWritingPipe(address);     //setter destinasjon for hvor vi tenker å skrive
   myRadio.stopListening();                    //stopper forrige punkt
-
 }
+
+
+
+/* Samler en maaling fra kap.-senor og gyro, kaller på median-funksjon, threshold-funksjon og
+ * sjekker om verdier skal sendes */
 void loop() {
    kap_maaling();
    gyro_maaling();
@@ -60,7 +61,7 @@ void loop() {
 	 gammel_send_array[i] = send_array[i];
       }
 
-      send_array = (long*) gyro_median();
+      send_array = gyro_median();
       send_array[ant_var] = kap_median();
 
       new_aks_mvmt = aks_thresh(send_array, gammel_send_array);
@@ -103,7 +104,7 @@ void loop() {
       old_aks_mvmt = new_aks_mvmt;
       send_pakke= false;   
 
-      /* print(send_array); */
+      print(send_array);
       sekv_nr = 0;
    }
 }
@@ -112,11 +113,17 @@ void send(void* verdier, int str, int ant) {
    myRadio.write(verdier, str*ant);
 }
 
-//sammenligner to tall 
-int int_compare(const void *a, const void *b) {
-   int* tall_a = (int*) a;
-   int* tall_b = (int*) b;
-   return *tall_a - *tall_b;
+// Sorteringsalgoritme for long-verdier.
+void bubble_sort_long(long a[], int size) {
+    for(int i=0; i<(size-1); i++) {
+        for(int o=0; o<(size-(i+1)); o++) {
+                if(a[o] > a[o+1]) {
+                    int t = a[o];
+                    a[o] = a[o+1];
+                    a[o+1] = t;
+                }
+        }
+    }
 }
 
 void print_ja_nei() {
@@ -134,5 +141,4 @@ void print(long* verdier) {
    Serial.print(" | GyY = "); Serial.print(verdier[4]);
    Serial.print(" | GyZ = "); Serial.print(verdier[5]);
    Serial.print(" | Kap = "); Serial.println(verdier[6]);
-
 }

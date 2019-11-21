@@ -61,7 +61,7 @@ void loop() {
 	 gammel_send_array[i] = send_array[i];
       }
 
-      send_array = (long*) gyro_median();
+      send_array = gyro_median();
       send_array[ant_var] = kap_median();
 
       new_aks_mvmt = aks_thresh(send_array, gammel_send_array);
@@ -104,7 +104,7 @@ void loop() {
       old_aks_mvmt = new_aks_mvmt;
       send_pakke= false;   
 
-      /* print(send_array); */
+      print(send_array);
       sekv_nr = 0;
    }
 }
@@ -113,11 +113,6 @@ void send(void* verdier, int str, int ant) {
    myRadio.write(verdier, str*ant);
 }
 
-int int_compare(const void *a, const void *b) {
-   int* tall_a = (int*) a;
-   int* tall_b = (int*) b;
-   return *tall_a - *tall_b;
-}
 
 void print_ja_nei() {
    Serial.print("Aks = "); Serial.print(ja_nei[0]);

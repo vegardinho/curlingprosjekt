@@ -63,25 +63,29 @@ void gyro_maaling(){
 
 //TODO: absoluttverdi av maalinger
 long* gyro_median() {
-   for (int i = 0; i < ant_var; i++) {
-      qsort(maalinger + i*maks_maalinger, maks_maalinger, sizeof(long), long_compare);
+
+   for (int i = 0; i < maks_maalinger; i++) {
+      bubble_sort_long(maalinger + i*maks_maalinger, maks_maalinger);
       med_denne[i] = maalinger[i*maks_maalinger + maks_maalinger/2];
    }
 
-   for (int i = 0; i < maks_maalinger; i++) {
-      Serial.println(maalinger[i]);
-   }
-
-   Serial.println();
    return med_denne;
 }
 
-long long_compare(const void *a, const void *b) {
-   long* tall_a = (long*) a;
-   long* tall_b = (long*) b;
-   return *tall_a - *tall_b;
+// Sorteringsalgoritme for long-verdier.
+void bubble_sort_long(long a[], int size) {
+    for(int i=0; i<(size-1); i++) {
+        for(int o=0; o<(size-(i+1)); o++) {
+                if(a[o] > a[o+1]) {
+                    int t = a[o];
+                    a[o] = a[o+1];
+                    a[o+1] = t;
+                }
+        }
+    }
 }
 
+// Brukes ikke
 void reset_aks_gyro() {
    for (int i = 0; i < maks_maalinger * ant_var; i++) {
       maalinger[i] = 0;

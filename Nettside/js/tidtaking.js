@@ -9,24 +9,27 @@ document.getElementById("start_stopp_knapp").onmouseover = function() {
    this.style.backgroundColor = "#00ff00";
 }
 
-document.getElementById("start_stopp_knapp").onmouseout = function() {
+document.getElementById("start_stop").onmouseover = function() {
+   this.style.backgroundColor = "#00ff00";
+}
+
+document.getElementById("start_stop").onmouseout = function() {
    this.style.backgroundColor = "white";
 }
 
 function gronn_time() {
-   document.getElementById("start_stopp_knapp").style.backgroundColor = "white";
-   document.getElementById("start_stopp_knapp").style.border = "solid #00ff00";
-   document.getElementById("start_stopp_knapp").innerText = "Start";
-   document.getElementById("start_stopp_knapp").onmouseover = function() {
+   document.getElementById("start_stop").style.backgroundColor = "white";
+   document.getElementById("start_stop").style.border = "solid #00ff00";
+   document.getElementById("start_stop").innerText = "Start";
+   document.getElementById("start_stop").onmouseover = function() {
       this.style.backgroundColor = "#00ff00";
    }
 }
-
-function roed_time() {
-   document.getElementById("start_stopp_knapp").style.backgroundColor = "white";
-   document.getElementById("start_stopp_knapp").style.border = "solid #f44336";
-   document.getElementById("start_stopp_knapp").innerText = "Stopp";
-   document.getElementById("start_stopp_knapp").onmouseover = function() {
+function roed_time(){
+   document.getElementById("start_stop").style.backgroundColor = "white";
+   document.getElementById("start_stop").style.border = "solid #f44336";
+   document.getElementById("start_stop").innerText = "Stopp";
+   document.getElementById("start_stop").onmouseover = function() {
       this.style.backgroundColor = "#f44336";
    }
 }

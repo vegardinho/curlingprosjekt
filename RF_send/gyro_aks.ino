@@ -38,7 +38,8 @@ void setup_gyro_aks(){
    Wire.endTransmission();
 }
 
-/* Lagrer verdi, og sender medianverdien dersom verdien er nummer 50 i rekken */
+
+/*får inn verdiene fra gyro og aks. lager en liste med første de 10 første verdiene for x-akse akelerometer osv*/ 
    // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)     
    // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L) */
    // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L) */
@@ -61,7 +62,7 @@ void gyro_maaling(){
    maalinger[maks_maalinger*5 + sekv_nr] = Wire.read()<<8|Wire.read();  
 }
 
-//TODO: absoluttverdi av maalinger
+//sorterer listen "maalinger" 10 for 10 (elementer) for så å regne ut medianen i de 10 sorterte elementene
 long* gyro_median() {
 
    for (int i = 0; i < maks_maalinger; i++) {

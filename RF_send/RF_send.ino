@@ -31,8 +31,8 @@ void setup() {
    kap_maalinger = malloc(sizeof(long) * maks_maalinger);      
  //sizeof - returnerer antall bytes, malloc - reserverer minne av spesifisert mengde */
 	
-   setup_radio();
-   setup_gyro_aks();
+   setup_radio();		//def i gyro_aks
+   setup_gyro_aks();		//def i RF_send
 }
 
 void setup_radio() {                  
@@ -112,7 +112,6 @@ void loop() {
 void send(void* verdier, int str, int ant) {
    myRadio.write(verdier, str*ant);
 }
-
 
 void print_ja_nei() {
    Serial.print("Aks = "); Serial.print(ja_nei[0]);

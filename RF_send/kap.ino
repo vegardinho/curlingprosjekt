@@ -10,7 +10,7 @@ void kap_maaling(){
 }
 
 long kap_median() {
-   qsort(kap_maalinger, maks_maalinger, sizeof(long), int_compare);   //qsort(liste, antall elem, størrelse, funksjon som sammenligner to elem) [funk int_compare def i "RF_send"] 
+   bubble_sort_long(kap_maalinger, maks_maalinger);
    return kap_maalinger[maks_maalinger/2];    //returnerer medianen
 }
 

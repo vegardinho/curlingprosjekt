@@ -73,19 +73,6 @@ long* gyro_median() {
    return med_denne;
 }
 
-// Sorteringsalgoritme for long-verdier.
-void bubble_sort_long(long a[], int size) {
-    for(int i=0; i<(size-1); i++) {
-        for(int o=0; o<(size-(i+1)); o++) {
-                if(a[o] > a[o+1]) {
-                    int t = a[o];
-                    a[o] = a[o+1];
-                    a[o+1] = t;
-                }
-        }
-    }
-}
-
 // Brukes ikke
 void reset_aks_gyro() {
    for (int i = 0; i < maks_maalinger * ant_var; i++) {

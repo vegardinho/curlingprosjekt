@@ -1,17 +1,25 @@
+#include <CapacitiveSensor.h>     //legger til bibliotek 
 #include <SPI.h>		//bib for kommunisere mellom enheter
 #include "RF24.h"		//
 
-RF24 myRadio (9, 10);		//setter CSN og CE pins. Vil være send og receive pin til SPI busen 
+#define SERIAL_RATE 9600
+#define RADIO_RATE 9600
+
+//sender pin setter til 4, receive pin settes til 2
+CapacitiveSensor cap = CapacitiveSensor(4,2); 
+RF24 myRadio (9, 10);	//setter CSN og CE pins. Vil være send og receive pin til SPI busen 
 const byte address[6] = "00001"; //må være lik på mottaker
 
-int maks_maalinger = 10;		//def variabler og pekere
+const int KAP_SAMPLES = 1;
+const int MAKS_MAALINGER = 10;		//def variabler og pekere
+const int ANT_VAR = 6;
 int sekv_nr = 0;
+
 long* med_denne;
-int ant_var = 6;
 long* send_array;
+long* kap_maalinger;                         
 long* gammel_send_array;
 boolean* ja_nei;
-long* kap_maalinger;                         
 
 boolean old_aks_mvmt = false;		//def boolean
 boolean new_aks_mvmt = false;
@@ -22,47 +30,45 @@ boolean new_kap_mvmt = false;
 
 boolean send_pakke = false;
 
+/* Alokkerer minne til variabler, og kaller på setup-funksjonene for gyro/aks og kap */
+ /* sizeof - returnerer antall bytes, malloc - reserverer minne av spesifisert mengde */
 void setup() {
-   med_denne = malloc((ant_var) * sizeof(long));
-   send_array = malloc((ant_var + 1) * sizeof(long));
-   gammel_send_array = malloc((ant_var + 1) * sizeof(long));
-   ja_nei = malloc((ant_var + 1) * sizeof(boolean));
-
-   kap_maalinger = malloc(sizeof(long) * maks_maalinger);      
- //sizeof - returnerer antall bytes, malloc - reserverer minne av spesifisert mengde */
+   med_denne = malloc((ANT_VAR) * sizeof(long));
+   send_array = malloc((ANT_VAR + 1) * sizeof(long));
+   gammel_send_array = malloc((ANT_VAR + 1) * sizeof(long));
+   ja_nei = malloc((ANT_VAR + 1) * sizeof(boolean));
+   kap_maalinger = malloc(sizeof(long) * MAKS_MAALINGER);      
 	
-   setup_radio();		//def i gyro_aks
+   cap.reset_CS_AutoCal(); // Set capacitive sensor to auto calibrate
    setup_gyro_aks();		//def i RF_send
+   setup_radio();		//def i gyro_aks
+
+   Serial.begin(SERIAL_RATE);                   //setter data-raten i bits per sekund 
 }
 
 void setup_radio() {                  
-  Serial.begin(9600);                   //setter data-raten i bits per sekund 
-  /* delay(100);                           //trenger ikke målinger så ofte; setter derfor på delay - for bedre ytelse på resten */
   myRadio.begin();                      //begynner transitering [bib inkludert (RF24.h) i RF_send]
   myRadio.setChannel(115); //kanal vi vil kommunisere med mottakeren
   myRadio.setPALevel(RF24_PA_MAX); //bruker mer strøm, men gir lengt mulig rekkevidde [Power amplifier]
-  myRadio.setDataRate( RF24_250KBPS ) ; //lavest mulig dataoverføring for lengre rekkevidde
+  myRadio.setDataRate(RF24_250KBPS) ; //lavest mulig dataoverføring for lengre rekkevidde
   myRadio.openWritingPipe(address);     //setter destinasjon for hvor vi tenker å skrive
   myRadio.stopListening();                    //stopper forrige punkt
-}
-
-
 
 /* Samler en maaling fra kap.-senor og gyro, kaller på median-funksjon, threshold-funksjon og
  * sjekker om verdier skal sendes */
 void loop() {
-   kap_maaling();
+   kap_maalinger[sekv_nr] = cap.capacitiveSensor(KAP_SAMPLES);      
    gyro_maaling();
 
    sekv_nr++;
 
-   if (sekv_nr >= maks_maalinger) {
-      for (int i = 0; i < ant_var + 1; i++) {
+   if (sekv_nr >= MAKS_MAALINGER) {
+      for (int i = 0; i < ANT_VAR + 1; i++) {
 	 gammel_send_array[i] = send_array[i];
       }
 
       send_array = gyro_median();
-      send_array[ant_var] = kap_median();
+      send_array[ANT_VAR] = kap_median();
 
       new_aks_mvmt = aks_thresh(send_array, gammel_send_array);
       if (new_aks_mvmt && !old_aks_mvmt) {
@@ -94,7 +100,7 @@ void loop() {
       }
 
 
-	 if (send_pakke) {
+      if (send_pakke) {
 	 send(ja_nei, sizeof(boolean), 3);
 	 print_ja_nei();
 	 /* send(send_array, sizeof(int), 7); */
@@ -114,17 +120,27 @@ void send(void* verdier, int str, int ant) {
    myRadio.write(verdier, str*ant);
 }
 
+
+void kap_maaling(){
+   kap_maalinger[sekv_nr] = cap.capacitiveSensor(1);      
+}
+
+long kap_median() {
+   bubble_sort_long(kap_maalinger, MAKS_MAALINGER);
+   return kap_maalinger[MAKS_MAALINGER/2];    //returnerer medianen
+}
+
 // Sorteringsalgoritme for long-verdier.
 void bubble_sort_long(long a[], int size) {
-    for(int i=0; i<(size-1); i++) {
-        for(int o=0; o<(size-(i+1)); o++) {
-                if(a[o] > a[o+1]) {
-                    int t = a[o];
-                    a[o] = a[o+1];
-                    a[o+1] = t;
-                }
-        }
-    }
+   for(int i=0; i<(size-1); i++) {
+      for(int o=0; o<(size-(i+1)); o++) {
+	 if(a[o] > a[o+1]) {
+	    int t = a[o];
+	    a[o] = a[o+1];
+	    a[o+1] = t;
+	 }
+      }
+   }
 }
 
 void print_ja_nei() {

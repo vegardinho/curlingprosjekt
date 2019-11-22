@@ -82,12 +82,13 @@ void loop() {
 	 send_pakke= true;
       }
 
-      new_kap_mvmt = kap_thresh(send_array, gammel_send_array); 
+      new_kap_mvmt = kap_thresh(send_array); 
       if (new_kap_mvmt) {
 	 ja_nei[2] = true;
       } else {
 	 ja_nei[2] = false;
       }
+
       if (new_kap_mvmt != old_kap_mvmt) {
 	 send_pakke = true;
       }

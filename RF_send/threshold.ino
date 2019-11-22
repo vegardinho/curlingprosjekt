@@ -18,6 +18,7 @@ long z_old;
 
 const long AKS_SENS = 80;
 const long GYRO_SENS = 100;
+const long KAP_SENS = 100;
 
 boolean aks_thresh(long* send_array, long* gammel_send_array) {
    x = send_array[0];
@@ -89,13 +90,11 @@ boolean gyro_thresh(long* send_array, long* gammel_send_array) {
    return false;
 }
 
-boolean kap_thresh(long* send_array, long* gammel_send_array) {
-   kap_threshold = 200;
-
+boolean kap_thresh(long* send_array) {
    kap_verdi = send_array[6];
    kap_verdi = abs(kap_verdi);
 
-   if (kap_verdi > kap_threshold) {
+   if (kap_verdi > KAP_SENS) {
       return true;
    }
    return false;

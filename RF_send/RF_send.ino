@@ -39,7 +39,6 @@ void setup() {
    ja_nei = malloc((ANT_VAR + 1) * sizeof(boolean));
    kap_maalinger = malloc(sizeof(long) * MAKS_MAALINGER);      
 	
-   cap.reset_CS_AutoCal(); // Set capacitive sensor to auto calibrate
    setup_gyro_aks();		//def i RF_send
    setup_radio();		//def i gyro_aks
 

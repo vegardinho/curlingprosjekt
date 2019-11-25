@@ -121,6 +121,8 @@ void send(void* verdier, int str, int ant) {
    myRadio.write(verdier, str*ant);
 }
 
+// Kaller på bubble-sort for listen, og returnerer det midterste elementet i listen etter
+// sortering
 long kap_median() {
    bubble_sort_long(kap_maalinger, MAKS_MAALINGER);
    return kap_maalinger[MAKS_MAALINGER/2];    //returnerer medianen

@@ -106,22 +106,20 @@ document.getElementById("start_stop").onmouseout = function(){
 
 //Endrer farge og tekst på knappen etter om kampen er startet eller stoppet
 function gronn_time() {
-    document.getElementById("start_stop").style.backgroundColor = "white";
-    document.getElementById("start_stop").style.border = "solid #00ff00";
-    document.getElementById("start_stop").innerText = "Start";
-    document.getElementById("start_stop").onmouseover = function()
-      {
-        this.style.backgroundColor = "#00ff00";
-      }
+   document.getElementById("start_stop").style.backgroundColor = "white";
+   document.getElementById("start_stop").style.border = "solid #00ff00";
+   document.getElementById("start_stop").innerText = "Start";
+   document.getElementById("start_stop").onmouseover = function() {
+      this.style.backgroundColor = "#00ff00";
+   }
 }
 function roed_time(){
-    document.getElementById("start_stop").style.backgroundColor = "white";
-    document.getElementById("start_stop").style.border = "solid #f44336";
-    document.getElementById("start_stop").innerText = "Stopp";
-    document.getElementById("start_stop").onmouseover = function()
-    {
+   document.getElementById("start_stop").style.backgroundColor = "white";
+   document.getElementById("start_stop").style.border = "solid #f44336";
+   document.getElementById("start_stop").innerText = "Stopp";
+   document.getElementById("start_stop").onmouseover = function() {
       this.style.backgroundColor = "#f44336";
-    }
+   }
 }
 
 // Funksjonene for å telle tid og vise en tidsstreng på nettsiden

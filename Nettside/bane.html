@@ -64,26 +64,33 @@
                 <span id="hvitTid">38:00</span>
             </div>
 
-        <div class="hele">  <! Denne klassen gjør at den bruker alle gridelementene og putter ting i midten>
-  	       <div>
-               <! Knappen for å starte og stoppe tiden>
-               <button id="start_stop" type="button">Start</button>
-  	       </div>
+            <div class="hele">  <! Denne klassen gjør at den bruker alle gridelementene og putter ting i midten>
+      	       <div>
+                   <! Knappen for å starte og stoppe tiden>
+                   <button id="start_stop" type="button">Start</button>
+      	       </div>
 
-  	       <div>
-               <! Knappen for å bytte lag>
-  		         <button id="bytt_lag" class="knapp2 blaa" type="button">Bytt lag</button>
-  	       </div>
-	       <p>
-	       <h4> Endre tid </h4> <br>
-              <!Området for å skifte tiden til et av lagene>
-            	       <textarea required placeholder="00" id="nyMin" maxlength="2" rows="1"
-            		  cols="2"></textarea>
-            	       <textarea required wrap="soft" placeholder="00" maxlength="2" id="nySek" rows="1"
-            		  cols="2"></textarea>
-                  <br>
-                  <button class="knapp2 blaa" id="settTid">Endre</button>
-   	   </div>
+      	       <div>
+                   <! Knappen for å bytte lag>
+      		         <button id="bytt_lag" class="knapp2 blaa" type="button">Bytt lag</button>
+      	       </div>
+    	       </div>
+             <div class = "left">
+    	       <h4> Endre tid </h4> <br>
+                  <!Området for å skifte tiden til et av lagene>
+                	       <textarea required placeholder="00" id="nyMin" maxlength="2" rows="1"
+                		  cols="2"></textarea>
+                	       <textarea required wrap="soft" placeholder="00" maxlength="2" id="nySek" rows="1"
+                		  cols="2"></textarea>
+                      <br>
+                      <button class="knapp2 blaa" id="settTid">Endre</button>
+       	   </div>
+           <div class ="middle">
+              <h4> Log </h4> <br>
+                <div id = "log" class = "box">
+                    <p id ="svak"> Her vil kampen logføres</p>
+                </div>
+           </div>
     </div>
 	 </div>
    <! Dette er en knapp for å vise bane 2>
@@ -174,7 +181,8 @@
                <! Knappen for å bytte lag>
   		         <button id="bytt_lag" class="knapp2 blaa" type="button">Bytt lag</button>
   	       </div>
-	       <p>
+	       </div>
+         <div class = "left">
 	       <h4> Endre tid </h4> <br>
               <!Området for å skifte tiden til et av lagene>
             	       <textarea required placeholder="00" id="nyMin" maxlength="2" rows="1"
@@ -184,19 +192,26 @@
                   <br>
                   <button class="knapp2 blaa" id="settTid">Endre</button>
    	   </div>
+       <div class ="middle">
+          <h4> Log </h4> <br>
+            <div class = "box">
+                <p>Her vil logfunksjonen vises</p>
+            </div>
+       </div>
+
     </div>
   </div>
 
 	 </div>
-<div>
+<div id="firebase" class ="hidden">
       <textarea required placeholder="aks" id="nyaks" maxlength="1" rows="1"
       cols="2"></textarea>
       <textarea required wrap="soft" placeholder="gyro" maxlength="1" id="nygyro" rows="1"
       cols="2"></textarea>
       <textarea required placeholder="cond" id="nycond" maxlength="1" rows="1"
       cols="2"></textarea>
-
-      <button id="firebase"> Vis bane 3</button>
+      <br>
+      <button id="firebase"> Send verdier til Firebase </button>
 <p id ="cond"> Cond: </p> <p id ="aks"> Aks </p> <p id="gyro"> Gyro: </p>
 </div>
 

@@ -1,5 +1,5 @@
 //Firebase kode
-  // Your web app's Firebase configuration
+  // Setter opp en kobling mellom nettsiden og Firebase database
   var firebaseConfig = {
     apiKey: "AIzaSyAiZ7O5u4reFJDmEo4ZwzvZvczccREeijs",
     authDomain: "innovasjonsprosjektet-11.firebaseapp.com",
@@ -10,15 +10,15 @@
     appId: "1:104701095266:web:e1471d5c6009b04458503b",
     measurementId: "G-TCK6GJTDZ0"
   };
-  // Initialize Firebase
+  // Starter Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 
-  // Get a reference to the database service
+  // Lager en referanse til databasen
   let database = firebase.database();
-  var output = document.getElementById('output');
   var steiner = database.ref("data");
 
+// Funksjon for testing av databasen og de boolske funksjonene
 function addStein() {
       var ny_aks = parseInt(document.getElementById("nyaks").value);
       var ny_gyro = parseInt(document.getElementById("nygyro").value);
@@ -32,26 +32,29 @@ function addStein() {
       pushStein(nyStein);
   }
 
-function pushStein(stein) {
-  steiner.push(stein);
-};
+      function pushStein(stein) {
+      steiner.push(stein);
+      };
 
-  // var steinTilstand = firebase.database().ref('data/');
-  // steinTilstandRef.on('value', function(snapshot) {
-  //   updateTilstand(output, snapshot.val());
-// });
+// Knapp for sending av verdier til Firebase
+knapp = document.getElementById("firebase");
+console.log(knapp);
+knapp.addEventListener("click", addStein);
+
+// De tre variablene som funksjonene baserer seg på
 var naa_aks =  0;
 var naa_gyro = 0;
 var naa_cond = 0;
 
-
-//var steinRef = database.ref('data');
+//Setter opp for visning av data på nettsiden
 let aks = document.getElementById("aks");
 let gyro = document.getElementById("gyro");
 let cond = document.getElementById("cond");
 
+// Viser verdiene som ligger i databasen på nettsiden
 function visSteiner(snapshot) {
   var stein = snapshot.val();
+  // Her oppdateres variablene ved innsending av ny data til databasen
   var naa_aks = `${stein.aks}`;
   var naa_gyro = `${stein.gyro}`;
   var naa_cond = `${stein.cond}`;
@@ -62,37 +65,46 @@ function visSteiner(snapshot) {
   automatic_start_stop(naa_aks, naa_gyro, naa_cond);
 
 }
-
+// Aktiverer visSteiner funksjonen når nye data dukker opp i databasen
 steiner.on('child_added', visSteiner);
 
-knapp = document.getElementById("firebase");
-console.log(knapp);
-knapp.addEventListener("click", addStein);
+// Reseter all data på Firebase når nettsiden lukkes
+  body = document.getElementById("body");
+  body.addEventListener ("unload", removeFirebaseData);
 
-
-
+  function removeFirebaseData(){
+    steiner.remove();
+    let rendatabase = {
+      "data": 0
+    }
+    database.set(rendatabase);
+  }
 
 
 //TIDTAKNING
-var stein_paa_vei = false;
-var start_game = false;
-var stein_aktivert = false;
+var stein_paa_vei = false; //Er steinen i bevegelse og på vei
+var start_game = false; //Er kampen manuelt startet enda
+var stein_aktivert = false; //Er steinen holdt i og i bevegelse
+
+// Tiden til de to lagene i sekunder
 var hvitTid = 2280;
 var roedTid = 2280;
+//Hvem sin runde er det?
 var hvitRunde = true;
+//For logfunksjonen på nettsiden
+var log = document.getElementById("log");
 document.getElementById("hvit");
 var stoppet = true;
-document.getElementById("hvit").style.border = "solid #001f3f";
 
-document.getElementById("start_stop").onmouseover = function()
-  {
+document.getElementById("hvit").style.border = "solid #001f3f";
+document.getElementById("start_stop").onmouseover = function(){
     this.style.backgroundColor = "#00ff00";
   }
-document.getElementById("start_stop").onmouseout = function()
-{
+document.getElementById("start_stop").onmouseout = function(){
   this.style.backgroundColor = "white";
 }
 
+//Endrer farge og tekst på knappen etter om kampen er startet eller stoppet
 function gronn_time() {
     document.getElementById("start_stop").style.backgroundColor = "white";
     document.getElementById("start_stop").style.border = "solid #00ff00";
@@ -112,6 +124,7 @@ function roed_time(){
     }
 }
 
+// Funksjonene for å telle tid og vise en tidsstreng på nettsiden
 function counter() {
    if (hvitRunde) {
       hvitTid -= 0.01
@@ -123,7 +136,6 @@ function counter() {
       document.getElementById("roedTid").innerHTML = tidStreng;
    }
 }
-
 function lagTidStreng(tid) {
    var min = Math.floor(tid/60);
    var sek = tid % 60;
@@ -175,32 +187,43 @@ function manual_stopp() {
   start_stopp_tid ();
 }
 
+// Automatisk start og stopp av tidtakningsfunksjon
 function automatic_start_stop (naa_aks, naa_gyro, naa_cond) {
-  console.log(stein_aktivert);
   if (start_game) {
     if (naa_aks == 0 && naa_gyro == 0 && naa_cond == 0 && stein_paa_vei) {
       console.log("Steinen har stoppet");
       bytt_lag ();
       start_stopp_tid ();
       stein_paa_vei = false;
+      writelog("Steinen har stoppet, tiden startes for det andre laget.")
     }
-    else if (naa_cond == 1 && (naa_aks == 1 || naa_gyro == 1)){
+    else if (naa_cond == 1 && (naa_aks == 1 || naa_gyro == 1) && stein_aktivert == false){
       console.log("Steinen er aktivert");
       stein_aktivert = true;
+      writelog("Steinen er aktivert");
     }
     else if(naa_cond == 0 && (naa_aks == 1 || naa_gyro == 1) && (stein_aktivert)){
       console.log("Steinen er sluppet og i bevegelse");
       start_stopp_tid();
       stein_aktivert = false;
       stein_paa_vei = true;
+      writelog("Steinen er sluppet og på vei. Tiden stoppes.");
     }
   }
 
 }
 
-
-
 document.getElementById("start_stop").addEventListener("click", manual_stopp);
+
+function writelog(tekst){
+  if (hvitRunde) {
+    log.innerHTML += "<br> <b> Hvit: </b>" + lagTidStreng(Math.round(hvitTid)) + ": " + tekst;
+  }
+  else {
+    log.innerHTML += "<br> <b> Rød: </b>" + lagTidStreng(Math.round(roedTid)) + ": " + tekst;
+  }
+  log.scrollTop = log.scrollHeight;
+}
 
 // Endre lag manuelt
 function bytt_lag (){

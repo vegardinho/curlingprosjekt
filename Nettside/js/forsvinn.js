@@ -2,7 +2,7 @@ var bane2 = document.getElementById("bane2");
 var knapp1 = document.getElementById("knapp1");
 var bane3 = document.getElementById("bane3");
 var knapp2 = document.getElementById("knapp2");
-
+var firebase = document.getElementById("firebase");
 
 function forsvinn() {
     if (knapp1.style.display === "none") {
@@ -21,15 +21,26 @@ function forsvinn2() {
   else {
     knapp2.style.display = "none";
     bane3.style.display = "block";
+    firebase.style.display = "block";
   }
 }
 try {document.getElementById("banenummersend").addEventListener("click", function(event) {
    var inputfrabruker = parseInt(document.getElementById("banenummer1").value);
-   var banenummer = "Bane nr. " + inputfrabruker;
-   document.getElementById("sett_banenummer").style.display= "none";
-   document.getElementById("banenummer_1_tekst").innerHTML = banenummer;
-
-});
+   if (isNaN(inputfrabruker)){
+        alert("Skriv inn gyldige verdier for banenr.");
+   }
+   else {
+      if (inputfrabruker > 1000 || inputfrabruker < 1) {
+          alert("Skriv banenr. mellom 1 og 999!");
+      }
+      else {
+         var banenummer = "Bane nr. " + inputfrabruker;
+         document.getElementById("sett_banenummer").style.display= "none";
+         document.getElementById("banenummer_1_tekst").innerHTML = banenummer;
+            }
+          }
+        }
+);
 } catch(e) {}
 
 try{

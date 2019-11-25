@@ -13,8 +13,8 @@ long x_old;
 long y_old;
 long z_old;
 
-const long AKS_SENS = 80;
-const long GYRO_SENS = 100;
+const long AKS_SENS = 400;
+const long GYRO_SENS = 600;
 const long KAP_SENS = 15;
 
 /* Finner absoluttverdi av nåværende og gamle verdier for aks, og sjekker om differansen er over

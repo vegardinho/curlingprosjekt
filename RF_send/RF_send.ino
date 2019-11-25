@@ -38,6 +38,7 @@ void setup() {
    gammel_send_array = malloc((ANT_VAR + 1) * sizeof(long));
    ja_nei = malloc((ANT_VAR + 1) * sizeof(boolean));
    kap_maalinger = malloc(sizeof(long) * MAKS_MAALINGER);      
+   cap.set_CS_Timeout_Millis(50);
 	
    setup_gyro_aks();		//def i RF_send
    setup_radio();		//def i gyro_aks
@@ -57,7 +58,7 @@ void setup_radio() {
 /* Samler en maaling fra kap.-senor og gyro, kaller på median-funksjon, threshold-funksjon og
  * sjekker om verdier skal sendes */
 void loop() {
-   kap_maalinger[sekv_nr] = cap.capacitiveSensor(KAP_SAMPLES);      
+   kap_maalinger[sekv_nr] = cap.capacitiveSensorRaw(KAP_SAMPLES);      
    gyro_maaling();
 
    sekv_nr++;
@@ -118,11 +119,6 @@ void loop() {
 
 void send(void* verdier, int str, int ant) {
    myRadio.write(verdier, str*ant);
-}
-
-
-void kap_maaling(){
-   kap_maalinger[sekv_nr] = cap.capacitiveSensor(1);      
 }
 
 long kap_median() {

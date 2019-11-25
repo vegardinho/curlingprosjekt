@@ -1,12 +1,9 @@
+/* Definerer alle globale variabler */
 long kap_threshold;
 
 long endring_x;
 long endring_y;
 long endring_z;
-
-long kap_verdi;
-long kap_gammel;
-long kap_endring;
 
 long x;
 long y;
@@ -16,10 +13,12 @@ long x_old;
 long y_old;
 long z_old;
 
-const long AKS_SENS = 80;
-const long GYRO_SENS = 100;
-const long KAP_SENS = 100;
+const long AKS_SENS = 400;
+const long GYRO_SENS = 600;
+const long KAP_SENS = 15;
 
+/* Finner absoluttverdi av nåværende og gamle verdier for aks, og sjekker om differansen er over
+ * threshold */
 boolean aks_thresh(long* send_array, long* gammel_send_array) {
    x = send_array[0];
    y = send_array[1];
@@ -55,6 +54,8 @@ boolean aks_thresh(long* send_array, long* gammel_send_array) {
    return false;
 }
 
+/* Finner absoluttverdi av nåværende og gamle verdier for gyro, og sjekker om differansen er */
+/* over threshold */
 boolean gyro_thresh(long* send_array, long* gammel_send_array) {
    x = send_array[3];
    y = send_array[4];
@@ -90,8 +91,9 @@ boolean gyro_thresh(long* send_array, long* gammel_send_array) {
    return false;
 }
 
+/* Sjekker om nåværende verdi for kap er over threshold */
 boolean kap_thresh(long* send_array) {
-   kap_verdi = send_array[6];
+   long kap_verdi = send_array[6];
    kap_verdi = abs(kap_verdi);
 
    if (kap_verdi > KAP_SENS) {

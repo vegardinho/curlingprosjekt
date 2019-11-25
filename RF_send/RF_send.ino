@@ -52,6 +52,7 @@ void setup_radio() {
   myRadio.setDataRate(RF24_250KBPS) ; //lavest mulig dataoverføring for lengre rekkevidde
   myRadio.openWritingPipe(address);     //setter destinasjon for hvor vi tenker å skrive
   myRadio.stopListening();                    //stopper forrige punkt
+}
 
 /* Samler en maaling fra kap.-senor og gyro, kaller på median-funksjon, threshold-funksjon og
  * sjekker om verdier skal sendes */
